@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EkoHałas — Hałas i jakość powietrza w polskich miastach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f7f5ef;   /* warm beige — from spec */
+      --bg-card:  #e8e5db;   /* comparison card — warm taupe, visible against bg */
+      --bg-white: #faf9f5;   /* source card — from spec "card background" */
+      --border:   #d4cfc0;   /* from spec */
+      --green:    #3b6d11;   /* primary — from spec */
+      --ink:      #1a2112;   /* dark forest — from spec foreground */
+      --ink-mid:  #5a6655;   /* muted text — from spec */
+      --ink-soft: #8a9485;   /* softer muted */
+      --serif:    'Playfair Display', Georgia, serif;
+      --sans:     'Inter', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity  1.15s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--d, 0ms);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* stagger helpers */
+    .stat:nth-child(1) { --d: 0ms }
+    .stat:nth-child(2) { --d: 90ms }
+    .stat:nth-child(3) { --d: 180ms }
+    .stat:nth-child(4) { --d: 270ms }
+
+    .card:nth-child(1) { --d: 0ms }
+    .card:nth-child(2) { --d: 110ms }
+    .card:nth-child(3) { --d: 220ms }
+
+    .comp-card:nth-child(1) { --d: 0ms }
+    .comp-card:nth-child(2) { --d: 130ms }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;  /* logo | links | empty */
+      align-items: center;
+      padding: 0 2.5rem;
+      height: 60px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      justify-self: start;
+    }
+    .nav-logo .leaf { color: var(--green); display: flex; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 6rem 2rem 5rem;
+    }
+    .hero-tag {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--ink);
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+      letter-spacing: -0.015em;
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      max-width: 500px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .hero-cta {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--green);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.2s;
+    }
+    .hero-cta:hover { gap: 0.8rem; }
+
+    /* ── MAP ── */
+    .map-section {
+      padding: 0 2.5rem 4.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .map-box {
+      width: 100%;
+      height: 400px;
+      background: var(--bg-card);
+      border: 1.5px dashed var(--border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.5;
+    }
+    .map-inner {
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .map-pin {
+      width: 44px;
+      height: 44px;
+      background: #e8ead8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      margin-bottom: 0.2rem;
+    }
+    .map-label {
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .map-sub { font-size: 0.74rem; color: var(--ink-soft); }
+
+    /* ── STATS ── */
+    .stats-outer {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2.5rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .stat {
+      text-align: center;
+      padding: 0 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.9rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--ink-mid); line-height: 1.5; }
+
+    /* ── SECTIONS ── */
+    .sec-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+    .sec-header { text-align: center; margin-bottom: 3rem; }
+    .sec-tag {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.55rem;
+    }
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .sec-sub {
+      margin-top: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--ink-mid);
+      font-weight: 300;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* ── SOURCE CARDS ── */
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem;
+      text-align: left;
+    }
+    .card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: box-shadow 0.25s, opacity 1.15s cubic-bezier(0.22,1,0.36,1), transform 1.15s cubic-bezier(0.22,1,0.36,1);
+      transition-delay: var(--d, 0ms);
+    }
+    .card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: #e8ead8;   /* light sage — from spec */
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    .card h3 { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+    .card p  { font-size: 0.83rem; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+
+    /* ── COMPARISON ── */
+    .comp-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .comp-card {
+      border-radius: 14px;
+      padding: 2.25rem;
+      transition: opacity 1.15s cubic-bezier(0.22,1,0.36,1), transform 1.15s cubic-bezier(0.22,1,0.36,1);
+      transition-delay: var(--d, 0ms);
+      border: 1px solid var(--border);
+    }
+    .comp-card.city    { background: rgba(26, 33, 18, 0.03); }   /* foreground/3% — dark tint */
+    .comp-card.suburb  { background: rgba(59, 109, 17, 0.04); }  /* primary/4%  — green tint */
+    .comp-head { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.6rem; }
+    .comp-icon {
+      width: 38px; height: 38px;
+      background: rgba(26,33,18,0.08);   /* forest ink tint */
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink-mid);
+    }
+    .comp-icon.suburb {
+      background: #e8ead8;   /* light sage — from spec map default */
+      color: var(--green);
+    }
+    .comp-head h3 { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; color: var(--ink); }
+    .comp-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-size: 0.9rem;
+    }
+    .comp-row-label { color: var(--ink-soft); }
+    .comp-val { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+    .comp-val.accent { color: var(--green); }
+
+    /* ── PULL QUOTE ── */
+    .quote-wrap {
+      text-align: center;
+      padding: 5rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .quote-bar        { width: 36px; height: 2px; background: var(--green); margin: 0 auto 2.5rem; }
+    .quote-bar-bottom { width: 36px; height: 2px; background: var(--green); margin: 2.5rem auto 0; }
+    .quote-text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+      color: var(--ink);
+      line-height: 1.42;
+    }
+    .quote-attr { margin-top: 1.4rem; font-size: 0.78rem; color: var(--ink-soft); }
+
+    /* ── FOOTER — mirrors nav styling ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 2.5rem;
+      height: 60px;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+      justify-self: start;
+    }
+    .footer-logo .leaf { color: var(--green); display: flex; }
+    .footer-nav { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav a { font-size: 0.82rem; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer-copy { font-size: 0.75rem; color: var(--ink-soft); white-space: nowrap; justify-self: end; }
+    .footer-note {
+      text-align: center; padding: 0.9rem 2.5rem;
+      font-size: 0.71rem; color: var(--ink-soft); line-height: 1.55;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── POLLUTANTS ACCORDION ── */
+    .poll-section { border-top: 1px solid var(--border); }
+    .poll-wrap { max-width: 860px; margin: 0 auto; padding: 5rem 2.5rem; }
+    .poll-intro {
+      font-size: 0.87rem; color: var(--ink-mid); line-height: 1.78;
+      margin-bottom: 2.5rem; font-weight: 300; max-width: 680px;
+    }
+    .accordion { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .acc-item { border-bottom: 1px solid var(--border); }
+    .acc-item:last-child { border-bottom: none; }
+    .acc-trigger {
+      width: 100%; display: flex; align-items: center; gap: 1rem;
+      padding: 1.05rem 1.4rem; background: none; border: none;
+      cursor: pointer; text-align: left; transition: background 0.15s;
+    }
+    .acc-trigger:hover { background: rgba(59,109,17,0.03); }
+    .acc-trigger[aria-expanded="true"] { background: rgba(59,109,17,0.045); }
+    .acc-badge {
+      font-size: 0.68rem; font-weight: 700; color: var(--green);
+      background: #e8ead8; padding: 0.22rem 0.55rem; border-radius: 5px;
+      flex-shrink: 0; min-width: 48px; text-align: center;
+      letter-spacing: 0.03em; font-family: var(--sans);
+    }
+    .acc-name { font-size: 0.91rem; font-weight: 500; color: var(--ink); flex: 1; }
+    .acc-arrow {
+      color: var(--ink-soft); flex-shrink: 0;
+      transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+    }
+    .acc-trigger[aria-expanded="true"] .acc-arrow { transform: rotate(180deg); }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.38s cubic-bezier(0.22,1,0.36,1); }
+    .acc-body-inner {
+      padding: 0.1rem 1.4rem 1.3rem calc(1.4rem + 48px + 1rem);
+      font-size: 0.84rem; color: var(--ink-mid); line-height: 1.78; font-weight: 300;
+    }
+
+    /* ── INTERACTIVE MAP ── */
+    #map-svg-container {
+      width: 100%;
+      height: 500px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    #map-svg-container svg { display: block; width: 100%; height: 100%; }
+    .map-region {
+      fill: #e8ead8;
+      stroke: #fff;
+      stroke-width: 1.2;
+      cursor: pointer;
+      transition: fill 0.18s ease;
+    }
+    .map-region:hover   { fill: #c0dd97; }
+    .map-region.active  { fill: #3b6d11; }
+    .map-loading {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; color: var(--ink-soft); letter-spacing: 0.04em;
+    }
+
+    /* ── REGION DETAIL ── */
+    .region-detail {
+      margin-top: 1.25rem;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      display: none;
+    }
+    .region-detail.visible {
+      display: block;
+      animation: rdSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes rdSlide {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .region-detail-hd {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .rd-name {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .rd-capital {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+    }
+    .rd-source {
+      margin-left: auto;
+      font-size: 0.68rem;
+      letter-spacing: 0.07em;
+      color: black;       /* hidden until live data arrives */
+      background: rgba(59,109,17,0.09);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      transition: color 0.4s;
+    }
+    .rd-source.live { color: var(--green); }
+    .rd-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .rd-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .rd-stat-lbl {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .rd-stat-val {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .rd-stat-unit { font-size: 0.76rem; color: var(--ink-soft); }
+    .rd-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+    .rd-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .r-low    { color: #3b6d11; }
+    .r-mid    { color: #c2410c; }
+    .r-high   { color: #b91c1c; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      nav { grid-template-columns: auto 1fr; }
+      .nav-links { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+      .stat:last-child { border-bottom: none; }
+      .cards-3 { grid-template-columns: 1fr; }
+      .comp-2  { grid-template-columns: 1fr; }
+      .rd-stats { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: auto 1fr; height: auto; padding: 1.25rem 1.5rem; gap: 0.75rem; }
+      .footer-copy { display: none; }
+      .footer-nav  { flex-wrap: wrap; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="topnav">
+  <a href="#" class="nav-logo">
+    <span class="leaf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+      </svg>
+    </span>
+    EkoHałas
+  </a>
+  <ul class="nav-links">
+    <li><a href="#o-projekcie">O projekcie</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#statystyki">Statystyki</a></li>
+    <li><a href="#zrodla">Źródła</a></li>
+    <li><a href="#porownanie">Porównanie</a></li>
+  </ul>
+</nav>
+
+<!-- HERO (no reveal — above fold) -->
+<section class="hero">
+  <div class="hero-tag">Hałas · Powietrze · Transport</div>
+  <h1>Jak ruch drogowy i kolejowy zmienia nasze otoczenie</h1>
+  <p>Analiza wpływu transportu na jakość powietrza i poziom hałasu w polskich miastach i na przedmieściach — dane, mapy i porównania.</p>
+  <a href="#mapa" class="hero-cta">Eksploruj mapę ↓</a>
+</section>
+
+
+<!-- STATS -->
+<section class="stats-outer" id="statystyki">
+  <div class="stats-grid">
+    <div class="stat reveal">
+      <div class="stat-num">78%</div>
+      <div class="stat-label">mieszkańców miast<br>narażonych na nadmierny<br>hałas drogowy</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">45 tys.</div>
+      <div class="stat-label">przedwczesnych zgonów<br>rocznie z powodu<br>zanieczyszczonego powietrza w Polsce</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">2,4×</div>
+      <div class="stat-label">wyższe stężenie NO₂<br>przy głównych arteriach<br>komunikacyjnych</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">62 dB</div>
+      <div class="stat-label">średni poziom hałasu<br>przy trasach kolejowych<br>w strefach podmiejskich</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE MAP -->
+<div class="map-section" id="mapa">
+    <div class="sec-wrap">
+    <div class="sec-header reveal">
+      <span class="sec-tag">Eksploracja</span>
+      <h2 class="sec-title">Mapa zanieczyszczeń</h2>
+      <p class="sec-sub">Kliknij województwo, aby zobaczyć szczegółowe dane środowiskowe.</p>
+    </div>
+  <div id="map-svg-container" class="reveal">
+    <div class="map-loading" id="map-loading">Ładowanie mapy województw…</div>
+  </div>
+
+  <div class="region-detail" id="region-detail">
+    <div class="region-detail-hd">
+      <span class="rd-name" id="rd-name"></span>
+      <span class="rd-capital" id="rd-capital"></span>
+      <span class="rd-source" id="rd-source">PM₂.₅ / NO₂: GIOŚ live</span>
+    </div>
+    <div class="rd-stats">
+      <div class="rd-stat">
+        <span class="rd-stat-lbl">Hałas</span>
+        <span class="rd-stat-val" id="rd-noise"></span>
+        <span class="rd-stat-unit">decybele (dB)</span>
+        <span class="rd-badge" id="rd-noise-badge"></span>
+      </div>
+      <div class="rd-stat">
+        <span class="rd-stat-lbl">PM₂.₅</span>
+        <span class="rd-stat-val" id="rd-pm25"></span>
+        <span class="rd-stat-unit">µg/m³</span>
+        <span class="rd-badge" id="rd-pm25-badge"></span>
+      </div>
+      <div class="rd-stat">
+        <span class="rd-stat-lbl">NO₂</span>
+        <span class="rd-stat-val" id="rd-no2"></span>
+        <span class="rd-stat-unit">µg/m³</span>
+        <span class="rd-badge" id="rd-no2-badge"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOURCE CARDS -->
+<section id="zrodla">
+  <div class="sec-wrap">
+    <div class="sec-header reveal">
+      <span class="sec-tag">Źródła zanieczyszczeń</span>
+      <h2 class="sec-title">Skąd bierze się problem?</h2>
+    </div>
+    <div class="cards-3">
+
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="2"/>
+            <path d="m16 8 5 2 1 3H1"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <h3>Komunikacyjne</h3>
+        <p>Obejmują szeroko rozumiany transport (emisja gazów podczas jazdy samochodem, koleją, lotu samolotem, podróży statkiem).</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="2"/>
+            <path d="m16 8 5 2 1 3H1"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <h3>Energetyczne</h3>
+        <p>Obejmują cały przemysł wydobywczy (kopalnie węgla, szyby wiertnicze) i spalanie paliw.</p>
+      </div>
+      
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="2"/>
+            <path d="m16 8 5 2 1 3H1"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <h3>Przemysłowe</h3>
+        <p>Przede wszystkim przemysł ciężki (hutnictwo, cementownie), metalurgiczny, spożywczy itp.</p>
+      </div>      
+
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4M2 9h20M8 3v6M16 3v6"/>
+          </svg>
+        </div>
+        <h3>Komunalne</h3>
+        <p>Gospodarstwa rolne, wysypiska, oczyszczalnie, spalanie węgla w piecu itd.</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 20V10M12 20V4M6 20v-6"/>
+          </svg>
+        </div>
+        <h3>Emisje wtórne</h3>
+        <p>Ścieranie opon, hamulców i nawierzchni uwalnia pyły PM₂.₅ i PM₁₀ — niewidoczne cząstki, które przenikają do płuc i krwiobiegu.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- POLLUTANTS ACCORDION -->
+<section class="poll-section">
+  <div class="poll-wrap">
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:1.2rem;">
+      <span class="sec-tag">Zanieczyszczenia powietrza</span>
+      <h2 class="sec-title">Najczęściej występujące zanieczyszczenia</h2>
+    </div>
+    <p class="poll-intro reveal">
+      Nie wszystkie zanieczyszczenia w podobnym stopniu oddziałują na ludzki organizm. W zależności od częstotliwości ich występowania wyróżniamy kilka szczególnie niebezpiecznych związków chemicznych, których stężenie bierze się pod uwagę przy określaniu ogólnej jakości powietrza w Polsce.
+    </p>
+    <div class="accordion reveal">
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">PM</span>
+          <span class="acc-name">Pyły zawieszone (PM10, PM2.5, PM1)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            To mieszanina cząstek stałych i substancji ciekłych unoszących się w powietrzu, takich jak kadm, nikiel, ołów, siarka, azbest. Pyły zawieszone są jednymi z głównych (i najbardziej toksycznych) składników smogu. Ze względu na bardzo małe rozmiary z łatwością przenikają do organizmu człowieka i sprzyjają rozwojowi wielu chorób.<br><br>
+            Ekspozycja na pyły zawieszone może stać się przyczyną wystąpienia miażdżycy, nowotworów oraz negatywnie oddziaływać na rozwój układu oddechowego u dzieci. Głównym źródłem takich zanieczyszczeń jest działalność człowieka – powstają w procesie spalania w przemyśle i poza nim (palenie w kominkach lub piecach) oraz transporcie drogowym.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">CO</span>
+          <span class="acc-name">Tlenek węgla (CO)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Ten bezwonny gaz, zwany potocznie czadem, jest szczególnie niebezpieczny zwłaszcza w okresie jesienno-zimowym. Uwalniany podczas spalania węgla w nieszczelnym kominku lub piecyku gazowym wywołuje wymioty, osłabienie, nudności i omdlenia. Jego duże stężenie w powietrzu może przyczynić się do uszkodzenia serca i wielu schorzeń układu krwionośnego.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">NO₂</span>
+          <span class="acc-name">Dwutlenek azotu (NO2)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Tlenki azotu powstają m.in. podczas emisji spalin przez samochody, pociągi, statki. Nawet krótkotrwała ekspozycja może doprowadzić do podrażnienia dróg oddechowych (kaszel, świszczący oddech) i oczu. Długotrwałe przebywanie w pomieszczeniu o wysokim stężeniu tlenków azotu osłabia układ oddechowy, wywołując infekcje bakteryjne i wirusowe (astma, choroby płuc).
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">SO₂</span>
+          <span class="acc-name">Dwutlenek siarki (SO2)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Główną przyczyną emisji tego szkodliwego gazu są procesy produkcyjne w dużych zakładach przemysłowych – kopalniach czy elektrowniach. Duża ilość tlenków siarki prowadzi do powstawania aerozoli siarczanowych, które w reakcji z wodą tworzą główny składnik kwaśnych deszczy – kwas siarkowy. Jego duże stężenie jest szkodliwe dla układu oddechowego, wywołując uszkodzenie nabłonka nosa, gardła, a nawet płuc.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">O₃</span>
+          <span class="acc-name">Ozon (O3)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Trójatomowa cząsteczka tlenu występująca w przyrodzie głównie na wysokości 20–30 km nad ziemią. Wyższego stężenia ozonu doświadczamy zazwyczaj po ulewnej burzy. Pomimo przyjemnego zapachu, jest to gaz cieplarniany wytwarzany przez człowieka w wyniku połączenia tlenków azotu, tlenku węgla i metanu. W dużej ilości zmniejsza odporność układu oddechowego, może powodować senność, bóle głowy i obniżenie ciśnienia tętniczego.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">C₆H₆</span>
+          <span class="acc-name">Benzen (C6H6)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Benzen należy do grupy węglowodorów aromatycznych powszechnie występujących w środowisku. Pojawia się naturalnie w glebie, wodzie, powietrzu, jednak jego wzmożona emisja wynika głównie z przetwarzania ropy naftowej, spalania oleju czy węgla. Benzen ma zastosowanie w detergentach, farbach, barwnikach i klejach. Ta niezwykle szkodliwa substancja wywołuje silne zatrucia oraz ma właściwości rakotwórcze i mutagenne.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">CO₂</span>
+          <span class="acc-name">Dwutlenek węgla (CO2)</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Wysoce szkodliwy dla środowiska naturalnego, jest jedną z głównych przyczyn efektu cieplarnianego. Mimo że dwutlenek węgla jest gazem wszechobecnym na ziemi, jego zbyt wysokie stężenie prowadzi do zakwaszenia organizmu, rozwoju chorób (także nowotworowych) i obrzęku mózgu. Główne źródła nadmiernej emisji to elektrownie węglowe, spalanie paliw kopalnych oraz palenie węgla i drewna w domowych kominkach.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="porownanie">
+  <div class="sec-wrap" style="padding-top:1rem">
+    <div class="sec-header reveal">
+      <span class="sec-tag">Porównanie</span>
+      <h2 class="sec-title">Miasto vs przedmieścia</h2>
+      <p class="sec-sub">Różnice w poziomie hałasu i zanieczyszczeń pomiędzy centrum a strefami podmiejskimi.</p>
+    </div>
+    <div class="comp-2">
+
+      <div class="comp-card city reveal">
+        <div class="comp-head">
+          <div class="comp-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2"/>
+              <path d="M9 22V12h6v10M8 7h.01M12 7h.01M16 7h.01M8 11h.01M12 11h.01M16 11h.01"/>
+            </svg>
+          </div>
+          <h3>Miasto</h3>
+        </div>
+        <div class="comp-row"><span class="comp-row-label">Średni hałas</span><span class="comp-val">72 dB</span></div>
+        <div class="comp-row"><span class="comp-row-label">PM₂.₅ (µg/m³)</span><span class="comp-val">38</span></div>
+        <div class="comp-row"><span class="comp-row-label">NO₂ (µg/m³)</span><span class="comp-val">52</span></div>
+        <div class="comp-row"><span class="comp-row-label">Czas ekspozycji</span><span class="comp-val">16h/dzień</span></div>
+      </div>
+
+      <div class="comp-card suburb reveal">
+        <div class="comp-head">
+          <div class="comp-icon suburb">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+            </svg>
+          </div>
+          <h3>Przedmieścia</h3>
+        </div>
+        <div class="comp-row"><span class="comp-row-label">Średni hałas</span><span class="comp-val">58 dB</span></div>
+        <div class="comp-row"><span class="comp-row-label">PM₂.₅ (µg/m³)</span><span class="comp-val accent">24</span></div>
+        <div class="comp-row"><span class="comp-row-label">NO₂ (µg/m³)</span><span class="comp-val accent">28</span></div>
+        <div class="comp-row"><span class="comp-row-label">Czas ekspozycji</span><span class="comp-val">10h/dzień</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="quote-wrap reveal">
+  <div class="quote-bar"></div>
+  <blockquote class="quote-text">„Hałas to niewidzialny zabójca — nie czujesz go, ale twoje ciało tak."</blockquote>
+  <div class="quote-attr">— Światowa Organizacja Zdrowia, raport 2023</div>
+  <div class="quote-bar-bottom"></div>
+</div>
+
+<!-- FOOTER -->
+<footer id="o-projekcie">
+  <div class="footer-main">
+    <a href="#" class="footer-logo">
+      <span class="leaf">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+      </span>
+      EkoHałas
+    </a>
+    <ul class="footer-nav">
+      <li><a href="#o-projekcie">O projekcie</a></li>
+      <li><a href="#mapa">Mapa</a></li>
+      <li><a href="#statystyki">Statystyki</a></li>
+      <li><a href="#zrodla">Źródła</a></li>
+      <li><a href="#">Kontakt</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 EkoHałas. Wszelkie prawa zastrzeżone.</span>
+  </div>
+  <div class="footer-note">
+    Dane pochodzą z Głównego Inspektoratu Ochrony Środowiska, Eurostat oraz raportów WHO.
+    Projekt ma charakter informacyjno-edukacyjny.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+  /* ── Scroll reveal ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* ── Accordion ── */
+  document.querySelectorAll('.acc-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // close all others
+      document.querySelectorAll('.acc-trigger[aria-expanded="true"]').forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          other.nextElementSibling.style.maxHeight = null;
+        }
+      });
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      body.style.maxHeight = isOpen ? null : body.scrollHeight + 'px';
+    });
+  });
+
+  /* ── Voivodeship data
+       noise  — hardcoded (replace with GUS yearbook values)
+       pm25 / no2 — fallback values overwritten by live GIOŚ fetch        ── */
+  const VOI = {
+    'PL.DS': { name: 'Dolnośląskie',        capital: 'Wrocław',       noise: 68, pm25: 32, no2: 38 },
+    'PL.KP': { name: 'Kujawsko-Pomorskie',  capital: 'Bydgoszcz',     noise: 62, pm25: 28, no2: 29 },
+    'PL.LB': { name: 'Lubelskie',           capital: 'Lublin',        noise: 59, pm25: 25, no2: 24 },
+    'PL.LU': { name: 'Lubuskie',            capital: 'Zielona Góra',  noise: 56, pm25: 20, no2: 19 },
+    'PL.LD': { name: 'Łódzkie',             capital: 'Łódź',          noise: 65, pm25: 34, no2: 40 },
+    'PL.MA': { name: 'Małopolskie',         capital: 'Kraków',        noise: 69, pm25: 44, no2: 46 },
+    'PL.MZ': { name: 'Mazowieckie',         capital: 'Warszawa',      noise: 71, pm25: 36, no2: 48 },
+    'PL.OP': { name: 'Opolskie',            capital: 'Opole',         noise: 60, pm25: 27, no2: 26 },
+    'PL.PK': { name: 'Podkarpackie',        capital: 'Rzeszów',       noise: 54, pm25: 19, no2: 17 },
+    'PL.PD': { name: 'Podlaskie',           capital: 'Białystok',     noise: 52, pm25: 16, no2: 15 },
+    'PL.PM': { name: 'Pomorskie',           capital: 'Gdańsk',        noise: 63, pm25: 24, no2: 31 },
+    'PL.SL': { name: 'Śląskie',             capital: 'Katowice',      noise: 73, pm25: 49, no2: 53 },
+    'PL.SK': { name: 'Świętokrzyskie',      capital: 'Kielce',        noise: 57, pm25: 26, no2: 21 },
+    'PL.WN': { name: 'Warmińsko-Mazurskie', capital: 'Olsztyn',       noise: 51, pm25: 15, no2: 13 },
+    'PL.WP': { name: 'Wielkopolskie',       capital: 'Poznań',        noise: 63, pm25: 29, no2: 32 },
+    'PL.ZP': { name: 'Zachodniopomorskie',  capital: 'Szczecin',      noise: 59, pm25: 21, no2: 22 },
+  };
+
+  /* Polish province name → HASC (matches GIOŚ station.city.commune.provinceName) */
+  const PROV_HASC = {
+    'Dolnośląskie':'PL.DS','Kujawsko-Pomorskie':'PL.KP','Lubelskie':'PL.LB',
+    'Lubuskie':'PL.LU','Łódzkie':'PL.LD','Małopolskie':'PL.MA','Mazowieckie':'PL.MZ',
+    'Opolskie':'PL.OP','Podkarpackie':'PL.PK','Podlaskie':'PL.PD','Pomorskie':'PL.PM',
+    'Śląskie':'PL.SL','Świętokrzyskie':'PL.SK','Warmińsko-Mazurskie':'PL.WN',
+    'Wielkopolskie':'PL.WP','Zachodniopomorskie':'PL.ZP',
+  };
+
+  /* Currently selected voivodeship — used to refresh panel after GIOŚ data arrives */
+  let currentHasc = null;
+
+  /* Match GeoJSON feature → VOI record */
+  function matchFeature(props) {
+    if (props.HASC_1 && VOI[props.HASC_1]) return { hasc: props.HASC_1, ...VOI[props.HASC_1] };
+    const raw = (props.NAME_1 || props.name || '').toLowerCase().replace(/województwo\s*/i,'').trim();
+    const entry = Object.entries(VOI).find(([,d]) => d.name.toLowerCase() === raw);
+    return entry ? { hasc: entry[0], ...entry[1] } : null;
+  }
+
+  /* Risk helpers */
+  function riskCls(v,[lo,hi]){ return v<lo?'r-low':v<hi?'r-mid':'r-high'; }
+  function riskLbl(v,[lo,hi]){ return v<lo?'Niskie':v<hi?'Umiarkowane':'Wysokie'; }
+
+  function showDetail(d, animate = true) {
+    currentHasc = d.hasc;
+    document.getElementById('rd-name').textContent    = d.name;
+    document.getElementById('rd-capital').textContent = `Stolica: ${d.capital}`;
+    [['noise',[55,65]],['pm25',[20,35]],['no2',[25,40]]].forEach(([key,thr]) => {
+      const val = d[key];
+      const cls = riskCls(val, thr);
+      document.getElementById(`rd-${key}`).textContent = val;
+      document.getElementById(`rd-${key}`).className   = `rd-stat-val ${cls}`;
+      document.getElementById(`rd-${key}-badge`).textContent = riskLbl(val,thr);
+      document.getElementById(`rd-${key}-badge`).className   = `rd-badge ${cls}`;
+    });
+    const panel = document.getElementById('region-detail');
+    if (animate) {
+      panel.classList.remove('visible');
+      void panel.offsetWidth;
+    }
+    panel.classList.add('visible');
+    if (animate) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ── GIOŚ live air quality fetch ──
+     Flow: all stations → group by province (max 3 each) →
+           sensors per station → latest PM2.5 / NO2 reading →
+           average per province → patch VOI → refresh panel if open        */
+  const GIOS = 'https://api.gios.gov.pl/pjp-api/rest';
+
+  async function fetchGIOSData() {
+    try {
+      /* 1. All monitoring stations */
+      const stations = await fetch(`${GIOS}/station/findAll`).then(r => r.json());
+
+      /* 2. Group by province, keep max 3 stations each */
+      const byHasc = {};
+      for (const s of stations) {
+        const hasc = PROV_HASC[s.city?.commune?.provinceName];
+        if (!hasc) continue;
+        (byHasc[hasc] ??= []).length < 3 && byHasc[hasc].push(s.id);
+      }
+
+      /* 3. Fetch sensors for every selected station (parallel) */
+      const flat = Object.entries(byHasc).flatMap(([hasc, ids]) => ids.map(id => ({ hasc, id })));
+      const sensorGroups = await Promise.all(
+        flat.map(({ hasc, id }) =>
+          fetch(`${GIOS}/sensor/getSensors/${id}`)
+            .then(r => r.json())
+            .then(sensors => ({ hasc, sensors }))
+            .catch(() => null)
+        )
+      );
+
+      /* 4. Collect PM2.5 + NO2 sensor IDs */
+      const targets = [];
+      for (const g of sensorGroups) {
+        if (!g) continue;
+        for (const s of g.sensors) {
+          const code = s.param?.paramCode;
+          if (code === 'PM2.5' || code === 'NO2')
+            targets.push({ hasc: g.hasc, sensorId: s.id, code });
+        }
+      }
+
+      /* 5. Fetch latest measurements (parallel) */
+      const readings = await Promise.all(
+        targets.map(({ hasc, sensorId, code }) =>
+          fetch(`${GIOS}/data/getData/${sensorId}`)
+            .then(r => r.json())
+            .then(data => {
+              const latest = data.values?.find(v => v.value !== null);
+              return latest ? { hasc, code, value: latest.value } : null;
+            })
+            .catch(() => null)
+        )
+      );
+
+      /* 6. Average per voivodeship per parameter */
+      const aggr = {};
+      for (const r of readings) {
+        if (!r) continue;
+        const a = (aggr[r.hasc] ??= { pm25: [], no2: [] });
+        if (r.code === 'PM2.5') a.pm25.push(r.value);
+        if (r.code === 'NO2')   a.no2.push(r.value);
+      }
+
+      /* 7. Patch VOI with live values */
+      const avg = arr => Math.round(arr.reduce((s,v) => s+v, 0) / arr.length);
+      let updated = false;
+      for (const [hasc, { pm25, no2 }] of Object.entries(aggr)) {
+        if (!VOI[hasc]) continue;
+        if (pm25.length) { VOI[hasc].pm25 = avg(pm25); updated = true; }
+        if (no2.length)  { VOI[hasc].no2  = avg(no2);  updated = true; }
+      }
+
+      /* 8. Refresh open detail panel without re-animating */
+      if (updated && currentHasc && VOI[currentHasc]) {
+        showDetail({ hasc: currentHasc, ...VOI[currentHasc] }, false);
+        document.getElementById('rd-source')?.classList.add('live');
+      }
+
+      console.log('[GIOŚ] PM2.5 / NO₂ updated', aggr);
+    } catch (err) {
+      console.warn('[GIOŚ] Fetch failed — using fallback values', err);
+    }
+  }
+
+  /* Start GIOŚ fetch immediately, non-blocking */
+  fetchGIOSData();
+
+  /* ── D3 Map ── */
+  (async () => {
+    const container = document.getElementById('map-svg-container');
+    const loading   = document.getElementById('map-loading');
+    try {
+      const geo = await d3.json(
+        'https://raw.githubusercontent.com/andilabs/polska-wojewodztwa-geojson/master/polska-wojewodztwa.geojson'
+      );
+      loading.remove();
+
+      const W = container.clientWidth, H = 500;
+      const svg = d3.select(container).append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('width', '100%').attr('height', H);
+
+      const proj = d3.geoMercator().fitExtent([[28, 20], [W - 28, H - 20]], geo);
+      const path = d3.geoPath().projection(proj);
+
+      svg.selectAll('path.map-region')
+        .data(geo.features)
+        .join('path')
+          .attr('class', 'map-region')
+          .attr('d', path)
+        .on('mouseenter', function(_, feat) {
+          const d = matchFeature(feat.properties);
+          if (d && d.hasc !== currentHasc) d3.select(this).attr('fill', '#c0dd97');
+        })
+        .on('mouseleave', function(_, feat) {
+          const d = matchFeature(feat.properties);
+          if (d && d.hasc !== currentHasc) d3.select(this).attr('fill', '#e8ead8');
+        })
+        .on('click', function(_, feat) {
+          const d = matchFeature(feat.properties);
+          if (!d) return;
+          svg.selectAll('path.map-region').classed('active', false).attr('fill', '#e8ead8');
+          d3.select(this).classed('active', true).attr('fill', '#3b6d11');
+          showDetail({ ...d, ...VOI[d.hasc] });   /* always read latest VOI values */
+        });
+
+    } catch (err) {
+      loading.textContent = 'Nie udało się załadować mapy.';
+      console.error(err);
+    }
+  })();
+</script>
+
+</body>
+</html>
