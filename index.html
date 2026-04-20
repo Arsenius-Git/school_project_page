@@ -378,6 +378,144 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ── TRAFFIC SECTION ── */
+    .traffic-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.25rem 0 1.75rem;
+    }
+    .traffic-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .traffic-list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      position: relative;
+      top: -1px;
+    }
+    .smog-box {
+      background: rgba(59,109,17,0.05);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .smog-box-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.01em;
+    }
+    .smog-box p {
+      font-size: 0.82rem;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .smog-box p:last-child { margin-bottom: 0; }
+
+    /* ── NOISE SOLUTIONS SECTION ── */
+    .methods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 3rem; margin-bottom: 2.5rem; }
+    .method-block { display: flex; flex-direction: column; gap: 0.85rem; }
+    .method-cat-label { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.1rem; }
+    .method-item { display: flex; flex-direction: column; gap: 0.15rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .method-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .method-item-title { font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+    .method-item-text { font-size: 0.86rem; color: var(--ink-mid); font-weight: 300; line-height: 1.75; }
+    .success-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2rem 0 3rem; }
+    .success-card { background: rgba(59,109,17,0.05); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 10px; padding: 1.3rem 1.5rem; }
+    .success-city { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; color: var(--ink); display: block; margin-bottom: 0.2rem; }
+    .success-num { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; color: var(--green); display: block; line-height: 1; margin-bottom: 0.65rem; }
+    .success-card p { font-size: 0.87rem; color: var(--ink-mid); font-weight: 300; line-height: 1.75; }
+    .tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .tip-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
+    .tip-icon { width: 34px; height: 34px; background: #e8ead8; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--green); margin-bottom: 0.75rem; }
+    .tip-title { font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+    .tip-text { font-size: 0.84rem; color: var(--ink-mid); font-weight: 300; line-height: 1.7; }
+    .tips-sub-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin: 1.5rem 0 0.75rem; display: block; }
+    @media (max-width: 768px) {
+      .methods-grid { grid-template-columns: 1fr; }
+      .success-strip { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── SURVEY SECTION ── */
+    .survey-section { border-top: 1px solid var(--border); }
+    .survey-wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2.5rem; }
+    .survey-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .survey-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.5rem;
+    }
+    .survey-card.full { grid-column: 1 / -1; }
+    .survey-q {
+      font-size: 0.91rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.55;
+      margin-bottom: 0.25rem;
+    }
+    .survey-meta {
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+      margin-bottom: 1.25rem;
+    }
+    /* horizontal bars */
+    .hbar-list { display: flex; flex-direction: column; gap: 0.7rem; }
+    .hbar-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .hbar-row { display: flex; align-items: center; gap: 0.6rem; }
+    .hbar-label { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.35; flex: 1; min-width: 0; }
+    .hbar-track { height: 8px; background: var(--bg-card); border-radius: 4px; overflow: hidden; flex: 2; }
+    .hbar-fill { height: 100%; border-radius: 4px; background: var(--green); transition: width 0.6s; }
+    .hbar-fill.c2 { background: #7ab648; }
+    .hbar-fill.c3 { background: #b8d98d; }
+    .hbar-pct { font-size: 0.78rem; color: var(--ink-soft); width: 40px; text-align: right; flex-shrink: 0; }
+    /* vertical bar chart */
+    .vbar-wrap { display: flex; align-items: flex-end; gap: 5px; height: 120px; margin-top: 0.5rem; }
+    .vbar-col { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; height: 100%; justify-content: flex-end; }
+    .vbar-bar { width: 100%; background: var(--green); border-radius: 3px 3px 0 0; min-height: 2px; }
+    .vbar-n { font-size: 0.68rem; color: var(--ink-mid); font-weight: 500; }
+    .vbar-lbl { font-size: 0.68rem; color: var(--ink-soft); }
+    /* donut */
+    .donut-wrap { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .donut {
+      width: 90px; height: 90px; border-radius: 50%;
+      flex-shrink: 0; position: relative;
+    }
+    .donut-hole {
+      position: absolute; inset: 20px;
+      background: var(--bg-white); border-radius: 50%;
+    }
+    .donut-legend { display: flex; flex-direction: column; gap: 0.45rem; flex: 1; min-width: 140px; }
+    .legend-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.81rem; color: var(--ink-mid); line-height: 1.45; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    @media (max-width: 680px) {
+      .survey-grid { grid-template-columns: 1fr; }
+      .survey-card.full { grid-column: 1; }
+    }
+
     /* ── POLLUTANTS ACCORDION ── */
     .poll-section { border-top: 1px solid var(--border); }
     .poll-wrap { max-width: 860px; margin: 0 auto; padding: 5rem 2.5rem; }
@@ -640,7 +778,6 @@
     EkoHałas
   </a>
   <ul class="nav-links">
-    <li><a href="#o-projekcie">O projekcie</a></li>
     <li><a href="#mapa">Mapa</a></li>
     <li><a href="#statystyki">Statystyki</a></li>
     <li><a href="#zrodla">Źródła</a></li>
@@ -658,19 +795,19 @@
 
 
 <!-- STATS -->
-<section class="stats-outer" id="statystyki">
+<section class="stats-outer">
   <div class="stats-grid">
     <div class="stat reveal">
       <div class="stat-num">78%</div>
       <div class="stat-label">mieszkańców miast<br>narażonych na nadmierny<br>hałas drogowy</div>
     </div>
     <div class="stat reveal">
-      <div class="stat-num">45 tys.</div>
-      <div class="stat-label">przedwczesnych zgonów<br>rocznie z powodu<br>zanieczyszczonego powietrza w Polsce</div>
+      <div class="stat-num">5,5 miliona</div>
+      <div class="stat-label">przedwczesnych zgonów na świecie z czego pół miliona przypada na Europę.</div>
     </div>
     <div class="stat reveal">
-      <div class="stat-num">2,4×</div>
-      <div class="stat-label">wyższe stężenie NO₂<br>przy głównych arteriach<br>komunikacyjnych</div>
+      <div class="stat-num">46%</div>
+      <div class="stat-label">zanieczyszczeń są generowane przez zanieczyszczenia pochodzące z miast</div>
     </div>
     <div class="stat reveal">
       <div class="stat-num">62 dB</div>
@@ -724,6 +861,11 @@
 <section id="zrodla">
   <div class="sec-wrap">
     <div class="sec-header reveal">
+      <span class="sec-tag">Definicja i charakterystyka hałasu</span>
+      <h2 class="sec-title" style="margin-bottom: 0.75rem;">Czym jest hałas?</h2>
+      <p style="font-size: 1rem; color: var(--ink-mid); font-weight: 300; line-height: 1.7; max-width: 660px; margin: 0 auto 2rem;">
+        Hałas to wszelkie niepożądane dźwięki zakłócające sen, pracę czy rozmowę. Uznawany za drugie największe zagrożenie środowiskowe dla zdrowia — zaraz po zanieczyszczeniu powietrza. Natężenie mierzy się w decybelach (dB) w skali logarytmicznej: 70–80 dB to poziom bezpieczny, 130 dB to granica bólu, a 140 dB może trwale uszkodzić słuch.
+      </p>
       <span class="sec-tag">Źródła zanieczyszczeń</span>
       <h2 class="sec-title">Skąd bierze się problem?</h2>
     </div>
@@ -950,6 +1092,148 @@
   </div>
 </section>
 
+<!-- TRAFFIC IMPACT -->
+<section class="poll-section">
+  <div class="poll-wrap">
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:1.2rem;">
+      <span class="sec-tag">Transport drogowy</span>
+      <h2 class="sec-title">Wpływ natężenia ruchu na jakość powietrza</h2>
+    </div>
+    <div class="reveal">
+      <p class="poll-intro" style="margin-bottom:0.75rem;">
+        Największy wpływ transportu drogowego na jakość powietrza obserwuje się w dużych miastach. Wysokie natężenie ruchu powoduje zwiększoną emisję spalin, szczególnie w centrach miast oraz w pobliżu głównych arterii komunikacyjnych. Na poziom zanieczyszczeń wpływają przede wszystkim:
+      </p>
+      <ul class="traffic-list">
+        <li>liczba pojazdów poruszających się po drogach</li>
+        <li>stan techniczny samochodów</li>
+        <li>rodzaj stosowanego paliwa</li>
+        <li>organizacja ruchu drogowego</li>
+        <li>częste zatrzymywanie się pojazdów na skrzyżowaniach i w korkach</li>
+      </ul>
+      <p class="poll-intro" style="margin-bottom:1.75rem;">
+        W czasie postoju w korkach silniki samochodów nadal emitują spaliny, co powoduje lokalny wzrost stężenia szkodliwych substancji w powietrzu.
+      </p>
+
+      <div class="smog-box">
+        <p class="smog-box-title">Smog komunikacyjny</p>
+        <p>Duże natężenie ruchu drogowego sprzyja powstawaniu smogu komunikacyjnego, szczególnie w warunkach bezwietrznej pogody oraz wysokiej temperatury powietrza. Smog ten powstaje w wyniku reakcji chemicznych między zanieczyszczeniami emitowanymi przez pojazdy a promieniowaniem słonecznym.</p>
+        <ul class="traffic-list" style="margin:0.75rem 0;">
+          <li>ograniczenie widoczności</li>
+          <li>podrażnienia oczu</li>
+          <li>kaszel i duszności</li>
+          <li>pogorszenie samopoczucia</li>
+        </ul>
+        <p>Jest szczególnie niebezpieczny dla mieszkańców dużych miast oraz osób zamieszkujących w pobliżu ruchliwych ulic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOISE HEALTH EFFECTS -->
+<section class="poll-section">
+  <div class="poll-wrap">
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:1.2rem;">
+      <span class="sec-tag">Wpływ hałasu na zdrowie</span>
+      <h2 class="sec-title">Jak hałas niszczy organizm?</h2>
+    </div>
+    <div class="accordion reveal">
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Słuch</span>
+          <span class="acc-name">Układ słuchowy</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Długotrwała ekspozycja prowadzi do trwałego uszkodzenia słuchu, szumów usznych (tinnitus) oraz nadwrażliwości na dźwięki (hiperakuzja). Uszkodzenia słuchu mogą być tymczasowe (zmęczenie słuchowe) lub nieodwracalne — zależnie od poziomu i czasu trwania ekspozycji.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Serce</span>
+          <span class="acc-name">Układ sercowo-naczyniowy</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Hałas działa jako stresor, wyzwalając reakcję „walcz lub uciekaj" i zwiększając produkcję adrenaliny oraz kortyzolu. Prowadzi to do nadciśnienia tętniczego, wzrostu częstości akcji serca, a w dłuższej perspektywie do zawałów serca i udarów.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Inne</span>
+          <span class="acc-name">Inne dolegliwości fizyczne</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Zwiększone ryzyko choroby wrzodowej żołądka, zaburzenia metaboliczne (np. cukrzyca typu 2), nawracające bóle głowy oraz spadek odporności organizmu.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Sen</span>
+          <span class="acc-name">Zaburzenia snu</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Hałas utrudnia zasypianie, spłyca sen i powoduje częste wybudzanie się, co prowadzi do chronicznego zmęczenia i spadku produktywności. Nawet jeśli hałas nas nie budzi, mózg nadal przetwarza bodźce akustyczne, generując stres.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Psyche</span>
+          <span class="acc-name">Stan psychiczny</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Ekspozycja na głośne dźwięki wywołuje rozdrażnienie, lęk, agresję oraz depresję. Hałas obciąża układ nerwowy, co skutkuje szeregiem problemów natury psychicznej — szczególnie przy długotrwałym narażeniu w miejscu zamieszkania lub pracy.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Umysł</span>
+          <span class="acc-name">Funkcje poznawcze</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Hałas pogarsza koncentrację, pamięć operacyjną oraz zdolność rozwiązywania problemów. Szczególnie widoczne jest to przy ekspozycji podczas pracy umysłowej lub nauki.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-badge">Dzieci</span>
+          <span class="acc-name">Skutki dla dzieci i grup wrażliwych</span>
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Dzieci są szczególnie podatne na negatywne skutki hałasu. Może on upośledzać ich rozwój poznawczy, naukę czytania, zapamiętywanie oraz nabywanie umiejętności językowych. U dzieci narażonych na hałas częściej obserwuje się problemy behawioralne, takie jak nadpobudliwość czy agresja.<br><br>
+            Inną grupą narażoną są osoby o niższym statusie socjoekonomicznym, które częściej zamieszkują tereny w pobliżu arterii komunikacyjnych i terenów przemysłowych.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- HEALTH IMPACT -->
 <section style="border-top: 1px solid var(--border);">
   <div class="sec-wrap">
@@ -981,8 +1265,15 @@
         <div class="health-card-head">
           <div class="health-card-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.98-3 2.5 2.5 0 0 1-1.32-4.24L12 2"/>
-              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.98-3 2.5 2.5 0 0 0 1.32-4.24L12 2"/>
+              <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+              <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
+              <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
+              <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/>
+              <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
+              <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
+              <path d="M19.938 10.5a4 4 0 0 1 .585.396"/>
+              <path d="M6 18a4 4 0 0 1-1.967-.516"/>
+              <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
             </svg>
           </div>
           <h3>Układ nerwowy</h3>
@@ -995,8 +1286,9 @@
         <div class="health-card-head">
           <div class="health-card-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-              <path d="M8 12h.01M12 8v8M16 12h.01"/>
+              <path d="M11 2v5.5M13 2v5.5"/>
+              <path d="M11 7.5 C9 7.5 5 9.5 3.5 13 C2 16.5 3 21 7 22 C9.5 22.7 12 21 12 18.5 L12 10 C12 8.5 11.8 7.5 11 7.5 Z"/>
+              <path d="M13 7.5 C15 7.5 19 9.5 20.5 13 C22 16.5 21 21 17 22 C14.5 22.7 12 21 12 18.5 L12 10 C12 8.5 12.2 7.5 13 7.5 Z"/>
             </svg>
           </div>
           <h3>Układ oddechowy</h3>
@@ -1084,13 +1376,447 @@
   </div>
 </section>
 
-<!-- PULL QUOTE -->
-<div class="quote-wrap reveal">
-  <div class="quote-bar"></div>
-  <blockquote class="quote-text">„Hałas to niewidzialny zabójca — nie czujesz go, ale twoje ciało tak."</blockquote>
-  <div class="quote-attr">— Światowa Organizacja Zdrowia, raport 2023</div>
-  <div class="quote-bar-bottom"></div>
-</div>
+<!-- SURVEY RESULTS -->
+<section class="survey-section" id="statystyki">
+  <div class="survey-wrap">
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:0;">
+      <span class="sec-tag">Badanie własne</span>
+      <h2 class="sec-title">Wyniki ankiety — hałas i zanieczyszczenia</h2>
+      <p style="font-size:0.83rem;color:var(--ink-mid);font-weight:300;margin-top:0.5rem;">Ankieta przeprowadzona wśród 37 respondentów. Poniżej prezentujemy wyniki wszystkich pytań.</p>
+    </div>
+
+    <div class="survey-grid">
+
+      <!-- Q1 – skala uciążliwości -->
+      <div class="survey-card full reveal">
+        <p class="survey-q">W jakiej skali oceniasz uciążliwość hałasu komunikacyjnego przy Twoim domu? (1 = cisza, 10 = hałas uniemożliwiający normalne funkcjonowanie)</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="vbar-wrap">
+          <div class="vbar-col"><div class="vbar-bar" style="height:58%"></div><div class="vbar-n">7</div><div class="vbar-lbl">1</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:75%"></div><div class="vbar-n">9</div><div class="vbar-lbl">2</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:100%"></div><div class="vbar-n">12</div><div class="vbar-lbl">3</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:8%"></div><div class="vbar-n">1</div><div class="vbar-lbl">4</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:33%"></div><div class="vbar-n">4</div><div class="vbar-lbl">5</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:8%"></div><div class="vbar-n">1</div><div class="vbar-lbl">6</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:17%"></div><div class="vbar-n">2</div><div class="vbar-lbl">7</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:8%"></div><div class="vbar-n">1</div><div class="vbar-lbl">8</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:2%"></div><div class="vbar-n">0</div><div class="vbar-lbl">9</div></div>
+          <div class="vbar-col"><div class="vbar-bar" style="height:2%"></div><div class="vbar-n">0</div><div class="vbar-lbl">10</div></div>
+        </div>
+      </div>
+
+      <!-- Q2 – rodzaj hałasu -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Który rodzaj hałasu jest dla Ciebie bardziej irytujący w codziennym życiu?</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 126.4deg,#7ab648 126.4deg 165.3deg,#b8d98d 165.3deg 223.6deg,#5a6655 223.6deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Hałas drogi (35.1%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Hałas kolei (10.8%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#b8d98d"></span>Oba rodzaje (16.2%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#5a6655"></span>Żaden nie stanowi problemu (37.8%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 – miejsce zamieszkania -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Miejsce zamieszkania respondentów</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 252.9deg,#7ab648 252.9deg 320.9deg,#b8d98d 320.9deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Przedmieścia (70.3%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Dzielnica sypialna (18.9%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#b8d98d"></span>Centrum miasta (10.8%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 – problemy z hałasem -->
+      <div class="survey-card full reveal">
+        <p class="survey-q">Czy z powodu hałasu transportowego doświadczasz poniższych problemów?</p>
+        <p class="survey-meta">36 odpowiedzi · możliwy wielokrotny wybór</p>
+        <div class="hbar-list">
+          <div class="hbar-item">
+            <div class="hbar-row">
+              <span class="hbar-label">Nie odczuwam negatywnych skutków</span>
+              <div class="hbar-track"><div class="hbar-fill" style="width:69.4%"></div></div>
+              <span class="hbar-pct">69.4%</span>
+            </div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-row">
+              <span class="hbar-label">Trudności z zasypianiem / wybudzanie się w nocy</span>
+              <div class="hbar-track"><div class="hbar-fill c2" style="width:13.9%"></div></div>
+              <span class="hbar-pct">13.9%</span>
+            </div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-row">
+              <span class="hbar-label">Trudności z koncentracją podczas pracy/nauki</span>
+              <div class="hbar-track"><div class="hbar-fill c2" style="width:13.9%"></div></div>
+              <span class="hbar-pct">13.9%</span>
+            </div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-row">
+              <span class="hbar-label">Rozdrażnienie lub pogorszony nastrój</span>
+              <div class="hbar-track"><div class="hbar-fill c3" style="width:5.6%"></div></div>
+              <span class="hbar-pct">5.6%</span>
+            </div>
+          </div>
+          <div class="hbar-item">
+            <div class="hbar-row">
+              <span class="hbar-label">Konieczność przerywania rozmowy</span>
+              <div class="hbar-track"><div class="hbar-fill c3" style="width:2.8%"></div></div>
+              <span class="hbar-pct">2.8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 – wietrzenie -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Jak często z powodu hałasu lub zapachu spalin rezygnujesz z wietrzenia mieszkania?</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 175deg,#7ab648 175deg 320.8deg,#b8d98d 320.8deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Rzadko (48.6%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Nigdy (40.5%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#b8d98d"></span>Tylko w określonych godzinach (10.8%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 – korki -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Czy w Twojej okolicy występują zatory drogowe (korki)?</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 136.1deg,#7ab648 136.1deg 262.5deg,#b8d98d 262.5deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Ruch jest zawsze płynny (37.8%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Sporadycznie (35.1%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#b8d98d"></span>Tak, regularnie w godzinach szczytu (27%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 – skutki spalin -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Czy odczuwasz negatywne skutki obecności spalin (np. zapach paliwa, osad na oknach)?</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 233.6deg,#7ab648 233.6deg 340.7deg,#b8d98d 340.7deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Rzadko (64.9%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Wcale (29.7%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#b8d98d"></span>Tak, codziennie lub często (~5.4%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 – zabezpieczenia -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Jak oceniasz obecne zabezpieczenia przed hałasem w Twojej okolicy?</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 272.5deg,#7ab648 272.5deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Roślinność skutecznie tłumi dźwięki (75.7%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Brakuje ekranów lub pasów zieleni (24.3%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 – pory hałasu -->
+      <div class="survey-card full reveal">
+        <p class="survey-q">W jakich porach hałas jest najbardziej dokuczliwy?</p>
+        <p class="survey-meta">35 odpowiedzi</p>
+        <div class="hbar-list">
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Godziny szczytu porannego / popołudniowego</span>
+            <div class="hbar-track"><div class="hbar-fill" style="width:45.7%"></div></div>
+            <span class="hbar-pct">45.7%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Nie jest dla mnie uciążliwy</span>
+            <div class="hbar-track"><div class="hbar-fill c2" style="width:28.6%"></div></div>
+            <span class="hbar-pct">28.6%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Wieczór (odpoczynek)</span>
+            <div class="hbar-track"><div class="hbar-fill c2" style="width:17.1%"></div></div>
+            <span class="hbar-pct">17.1%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Noc (zakłócanie snu)</span>
+            <div class="hbar-track"><div class="hbar-fill c3" style="width:11.4%"></div></div>
+            <span class="hbar-pct">11.4%</span>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Q9 – źródło dźwięku -->
+      <div class="survey-card full reveal">
+        <p class="survey-q">Które źródło dźwięku jest dla Ciebie najbardziej uciążliwe?</p>
+        <p class="survey-meta">37 odpowiedzi · możliwy wielokrotny wybór</p>
+        <div class="hbar-list">
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Motocykle i głośne wydechy</span>
+            <div class="hbar-track"><div class="hbar-fill" style="width:51.4%"></div></div>
+            <span class="hbar-pct">51.4%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Szum opon i silników samochodowych</span>
+            <div class="hbar-track"><div class="hbar-fill c2" style="width:29.7%"></div></div>
+            <span class="hbar-pct">29.7%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Pojazdy uprzywilejowane (syreny)</span>
+            <div class="hbar-track"><div class="hbar-fill c2" style="width:24.3%"></div></div>
+            <span class="hbar-pct">24.3%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Pociągi towarowe (wibracje i hałas)</span>
+            <div class="hbar-track"><div class="hbar-fill c3" style="width:13.5%"></div></div>
+            <span class="hbar-pct">13.5%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Nie mam takiego</span>
+            <div class="hbar-track"><div class="hbar-fill c3" style="width:13.5%"></div></div>
+            <span class="hbar-pct">13.5%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Pociągi pasażerskie / tramwaje</span>
+            <div class="hbar-track"><div class="hbar-fill c3" style="width:10.8%"></div></div>
+            <span class="hbar-pct">10.8%</span>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Q11 – odległość od hałasu -->
+      <div class="survey-card full reveal">
+        <p class="survey-q">Odległość od głównych źródeł hałasu</p>
+        <p class="survey-meta">26 odpowiedzi · możliwy wielokrotny wybór</p>
+        <div class="hbar-list">
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">W pobliżu linii kolejowej / stacji (do 1 km)</span>
+            <div class="hbar-track"><div class="hbar-fill" style="width:42.3%"></div></div>
+            <span class="hbar-pct">42.3%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">Przy ruchliwej ulicy (ponad 2 pasy ruchu)</span>
+            <div class="hbar-track"><div class="hbar-fill c2" style="width:38.5%"></div></div>
+            <span class="hbar-pct">38.5%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">W pobliżu linii kolejowej / stacji</span>
+            <div class="hbar-track"><div class="hbar-fill c2" style="width:26.9%"></div></div>
+            <span class="hbar-pct">26.9%</span>
+          </div></div>
+          <div class="hbar-item"><div class="hbar-row">
+            <span class="hbar-label">W pobliżu obwodnicy / autostrady</span>
+            <div class="hbar-track"><div class="hbar-fill c3" style="width:11.5%"></div></div>
+            <span class="hbar-pct">11.5%</span>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Q12 – sprawdzanie zanieczyszczeń -->
+      <div class="survey-card reveal">
+        <p class="survey-q">Jak często sprawdzasz poziom zanieczyszczenia powietrza?</p>
+        <p class="survey-meta">37 odpowiedzi</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(#3b6d11 0deg 223.9deg,#7ab648 223.9deg 360deg)">
+            <div class="donut-hole"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#3b6d11"></span>Nigdy nie sprawdzam (62.2%)</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Sprawdzam gdy media informują o zagrożeniu (37.8%)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- NOISE SOLUTIONS -->
+<section class="poll-section">
+  <div class="poll-wrap">
+
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:2rem;">
+      <span class="sec-tag">Walka z hałasem</span>
+      <h2 class="sec-title">Jak miasta walczą z hałasem?</h2>
+    </div>
+
+    <div class="methods-grid reveal">
+      <!-- Left column -->
+      <div class="method-block">
+        <p class="method-cat-label">Rozwiązania techniczne i infrastrukturalne</p>
+        <div class="method-item">
+          <span class="method-item-title">Ekrany akustyczne</span>
+          <span class="method-item-text">Najpopularniejsza metoda, choć krytykowana za niszczenie krajobrazu i ograniczoną skuteczność na wyższych piętrach. Betonowe ekrany pochłaniają o 6 dB więcej przy dwukrotnym zwiększeniu masy.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Ciche nawierzchnie i torowiska</span>
+          <span class="method-item-text">Zastosowanie bitumicznych nawierzchni niskohałaśliwych oraz zielonych torowisk pozwala na redukcję hałasu o około 2–3 dB.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Zagłębienie dróg i wały ziemne</span>
+          <span class="method-item-text">Budowa dróg w wykopach sprawia, że dźwięk „ucieka" ku górze. Estetyczna alternatywa dla klasycznych ekranów.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Ronda zamiast skrzyżowań</span>
+          <span class="method-item-text">Płynniejszy ruch eliminuje gwałtowne hamowanie i przyspieszanie, obniżając hałas o 2–3 dB.</span>
+        </div>
+        <p class="method-cat-label" style="margin-top:1.25rem">Zarządzanie ruchem</p>
+        <div class="method-item">
+          <span class="method-item-title">Ograniczenia prędkości</span>
+          <span class="method-item-text">Strefy „Tempo 30" realnie obniżają hałas, o ile są wsparte geometrią drogi (np. zwężeniami). Różnica między 50 a 70 km/h jest bardzo odczuwalna.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Ograniczenie ruchu ciężkiego</span>
+          <span class="method-item-text">Eliminacja tranzytu tirów z centrów miast poprzez obwodnice to kluczowy element poprawy klimatu akustycznego.</span>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="method-block">
+        <p class="method-cat-label">Planowanie urbanistyczne</p>
+        <div class="method-item">
+          <span class="method-item-title">Odpowiednia zabudowa</span>
+          <span class="method-item-text">Zabudowa z podwórzami wewnętrznymi oraz lokalizowanie budynków usługowych w pierwszej linii jako ekranu dla domów mieszkalnych.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Pasy zieleni</span>
+          <span class="method-item-text">Zieleń działa głównie jako filtr psychologiczny — realną redukcję o 10 dB daje dopiero pas zieleni o szerokości ok. 100 metrów.</span>
+        </div>
+        <p class="method-cat-label" style="margin-top:1.25rem">Dokumentacja hałasu</p>
+        <div class="method-item">
+          <span class="method-item-title">Mapy akustyczne</span>
+          <span class="method-item-text">Miasta powyżej 100 tys. mieszkańców tworzą mapy akustyczne co 5 lat: osobne dla hałasu drogowego, szynowego, lotniczego i przemysłowego.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Wskaźniki hałasu</span>
+          <span class="method-item-text">Stosowane wskaźniki: LAeqD (dzień), LAeqN (noc) oraz LDWN — długookresowy wskaźnik dobowy.</span>
+        </div>
+        <div class="method-item">
+          <span class="method-item-title">Programy ochrony przed hałasem</span>
+          <span class="method-item-text">Strategiczne dokumenty określające konkretne działania, koszty oraz przewidywany „zysk akustyczny" dla danego obszaru.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success stories -->
+    <p class="method-cat-label reveal">Przykłady sukcesów</p>
+    <div class="success-strip reveal">
+      <div class="success-card">
+        <span class="success-city">Poznań</span>
+        <span class="success-num">−5 dB</span>
+        <p>Modernizacja taboru, budowa zielonych torowisk (m.in. ul. Winogrady) i cichych nawierzchni. W latach 2008–2012 hałas drogowy obniżył się o 5 dB w dzień i 6 dB w nocy.</p>
+      </div>
+      <div class="success-card">
+        <span class="success-city">Kraków</span>
+        <span class="success-num">−25%</span>
+        <p>Działania inżynieryjne i reorganizacja ruchu sprawiły, że liczba osób zamieszkujących w strefach hałasu powyżej 60 dB zmniejszyła się o około 25%.</p>
+      </div>
+    </div>
+
+    <!-- Personal protection -->
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:1.5rem;">
+      <span class="sec-tag">Ochrona własna</span>
+      <h2 class="sec-title" style="font-size:clamp(1.4rem,2.5vw,2rem)">Jak zabezpieczyć swój dom i siebie?</h2>
+    </div>
+
+    <span class="tips-sub-label reveal">W domu</span>
+    <div class="tips-grid reveal">
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+        </div>
+        <p class="tip-title">Okna i drzwi</p>
+        <p class="tip-text">Dźwiękoszczelne okna i uszczelki wyciszające we framugach drzwi to podstawa. Sprawdź szczelność istniejących okien — nieszczelności przepuszczają większość hałasu.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M4 20c0-4 3-6 8-6s8 2 8 6"/></svg>
+        </div>
+        <p class="tip-title">Dywany i wykładziny</p>
+        <p class="tip-text">Dywany z długim włosem zapobiegają odbijaniu się dźwięków od twardych podłóg i pochłaniają energię akustyczną wewnątrz pomieszczenia.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M19 3h-4v18h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/></svg>
+        </div>
+        <p class="tip-title">Zasłony dźwiękochłonne</p>
+        <p class="tip-text">Grube tkaniny na oknach skutecznie pochłaniają dźwięki z zewnątrz. Specjalne zasłony akustyczne łączą estetykę z funkcją wyciszającą.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 22h5l-.6-6H10z"/>
+            <path d="M8 16h8"/>
+            <path d="M12 16V9"/>
+            <path d="M12 13c0 0-4.5-1-4.5-6 0 0 4.5 1 4.5 6"/>
+            <path d="M12 10c0 0 4-2 4.5-7 0 0-4 1-4.5 7"/>
+          </svg>
+        </div>
+        <p class="tip-title">Elementy dekoracyjne</p>
+        <p class="tip-text">Regały z książkami, obrazy, „żywe ściany" z mchu — działają jak naturalne absorbery akustyczne, rozbijając falę dźwiękową.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4M10 6V4M14 6V4M18 6V4"/></svg>
+        </div>
+        <p class="tip-title">Panele akustyczne</p>
+        <p class="tip-text">Przy poważnym problemie warto zastosować profesjonalne panele wygłuszające na ścianach — dostępne w różnych kształtach i kolorach.</p>
+      </div>
+    </div>
+
+    <span class="tips-sub-label reveal">W mieście</span>
+    <div class="tips-grid reveal">
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg>
+        </div>
+        <p class="tip-title">Zatyczki do uszu</p>
+        <p class="tip-text">Modele z filtrem akustycznym redukują uciążliwe dźwięki bez całkowitego odcięcia od otoczenia — dobre do komunikacji miejskiej i ruchliwych przestrzeni.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14a9 9 0 0 1 18 0"/><path d="M3 14v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2"/><path d="M16 14v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2"/></svg>
+        </div>
+        <p class="tip-title">Słuchawki z ANC</p>
+        <p class="tip-text">Aktywna redukcja hałasu (Active Noise Cancelling) skutecznie blokuje monotonny zgiełk miasta i dźwięki silników — idealne do pracy i podróży.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <p class="tip-title">Wybór tras i odpoczynek</p>
+        <p class="tip-text">Omijaj główne arterie, wybierając drogi przez parki. Dbaj o regularne przerwy w ciszy — słuch potrzebuje czasu na regenerację po ekspozycji na hałas.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer id="o-projekcie">
@@ -1105,11 +1831,9 @@
       EkoHałas
     </a>
     <ul class="footer-nav">
-      <li><a href="#o-projekcie">O projekcie</a></li>
       <li><a href="#mapa">Mapa</a></li>
       <li><a href="#statystyki">Statystyki</a></li>
       <li><a href="#zrodla">Źródła</a></li>
-      <li><a href="#">Kontakt</a></li>
     </ul>
     <span class="footer-copy">© 2026 EkoHałas. Wszelkie prawa zastrzeżone.</span>
   </div>
