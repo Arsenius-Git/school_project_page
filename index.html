@@ -268,6 +268,12 @@
       gap: 1.25rem;
       text-align: left;
     }
+    .cards-4 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      text-align: left;
+    }
     .card {
       background: var(--bg-white);
       border: 1px solid var(--border);
@@ -520,6 +526,87 @@
     .r-mid    { color: #c2410c; }
     .r-high   { color: #b91c1c; }
 
+    /* ── HEALTH SECTION ── */
+    .health-intro {
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      font-size: 0.92rem;
+      color: var(--ink-mid);
+      line-height: 1.78;
+      font-weight: 300;
+    }
+    .vuln-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin: 2rem 0 3rem;
+    }
+    .vuln-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.82rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+    .vuln-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      margin-top: 0.42em;
+    }
+    .health-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .health-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 2.25rem;
+    }
+    .health-card-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .health-card-icon {
+      width: 36px;
+      height: 36px;
+      background: #e8ead8;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .health-card h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .health-card p {
+      font-size: 0.83rem;
+      color: var(--ink-mid);
+      line-height: 1.78;
+      font-weight: 300;
+    }
+    .health-card p + p { margin-top: 0.9rem; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 800px) {
       nav { grid-template-columns: auto 1fr; }
@@ -528,7 +615,10 @@
       .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
       .stat:last-child { border-bottom: none; }
       .cards-3 { grid-template-columns: 1fr; }
+      .cards-4 { grid-template-columns: 1fr; }
       .comp-2  { grid-template-columns: 1fr; }
+      .vuln-grid { grid-template-columns: 1fr 1fr; }
+      .health-cards { grid-template-columns: 1fr; }
       .rd-stats { grid-template-columns: 1fr; }
       .footer-main { grid-template-columns: auto 1fr; height: auto; padding: 1.25rem 1.5rem; gap: 0.75rem; }
       .footer-copy { display: none; }
@@ -655,10 +745,7 @@
       <div class="card reveal">
         <div class="card-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="3" width="15" height="13" rx="2"/>
-            <path d="m16 8 5 2 1 3H1"/>
-            <circle cx="5.5" cy="18.5" r="2.5"/>
-            <circle cx="18.5" cy="18.5" r="2.5"/>
+            <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
           </svg>
         </div>
         <h3>Energetyczne</h3>
@@ -668,10 +755,8 @@
       <div class="card reveal">
         <div class="card-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="3" width="15" height="13" rx="2"/>
-            <path d="m16 8 5 2 1 3H1"/>
-            <circle cx="5.5" cy="18.5" r="2.5"/>
-            <circle cx="18.5" cy="18.5" r="2.5"/>
+            <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+            <path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>
           </svg>
         </div>
         <h3>Przemysłowe</h3>
@@ -681,8 +766,8 @@
       <div class="card reveal">
         <div class="card-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/>
-            <path d="M8 21h8M12 17v4M2 9h20M8 3v6M16 3v6"/>
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
         </div>
         <h3>Komunalne</h3>
@@ -692,7 +777,9 @@
       <div class="card reveal">
         <div class="card-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 20V10M12 20V4M6 20v-6"/>
+            <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/>
+            <path d="M9.6 4.6A2 2 0 1 1 11 8H2"/>
+            <path d="M12.6 19.4A2 2 0 1 0 14 16H2"/>
           </svg>
         </div>
         <h3>Emisje wtórne</h3>
@@ -805,6 +892,146 @@
             Wysoce szkodliwy dla środowiska naturalnego, jest jedną z głównych przyczyn efektu cieplarnianego. Mimo że dwutlenek węgla jest gazem wszechobecnym na ziemi, jego zbyt wysokie stężenie prowadzi do zakwaszenia organizmu, rozwoju chorób (także nowotworowych) i obrzęku mózgu. Główne źródła nadmiernej emisji to elektrownie węglowe, spalanie paliw kopalnych oraz palenie węgla i drewna w domowych kominkach.
           </div>
         </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAIN POLUTION SOURCES -->
+
+<section id="zrodla">
+  <div class="sec-wrap">
+    <div class="poll-intro reveal">
+      <span class="sec-tag">Skala problemu i źródła zanieczyszczeń</span>
+      <p>Zanieczyszczenie powietrza jest jednym z największych globalnych zagrożeń, powodującym rocznie około 5,5 miliona przedwczesnych zgonów na świecie, z czego pół miliona przypada na Europę. W samej Warszawie zanieczyszczenia te odpowiadają za około 2800 zgonów rocznie.</p>
+      <h2 class="sec-title">Główne źródła zanieczyszczeń to:</h2>
+    </div>
+       
+   
+    <div class="cards-4">
+      
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="2"/>
+            <path d="m16 8 5 2 1 3H1"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <h3>Transport</h3>
+        <p>Odpowiada za około 52% zanieczyszczeń w aglomeracjach takich jak Warszawa; obejmuje emisje z samochodów, samolotów i statków.</p>
+      </div>      
+
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3>Sektor komunalny</h3>
+        <p>Piece domowe i spalanie paliw stałych (np. węgla, drewna) generują około 46% zanieczyszczeń miejskich.</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+            <path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>
+          </svg>
+        </div>
+        <h3>Przemysł i energetyka</h3>
+        <p>Wydobycie i spalanie paliw kopalnych, hutnictwo oraz cementownie.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HEALTH IMPACT -->
+<section style="border-top: 1px solid var(--border);">
+  <div class="sec-wrap">
+    <div class="sec-header reveal">
+      <span class="sec-tag">Wpływ na zdrowie</span>
+      <h2 class="sec-title">Jak zanieczyszczone powietrze wpływa na zdrowie?</h2>
+    </div>
+
+    <div class="health-intro reveal">
+      <p>Rosnące zapotrzebowanie na energię, galopujący postęp technologiczny czy częste korzystanie z samochodów wpłynęły na wzrost emisji wielu szkodliwych gazów do atmosfery. Faktem jest, że przebywanie w warunkach bardzo zanieczyszczonego powietrza wpływa niekorzystnie na nasze samopoczucie i zdrowie — możemy mieć z nim styczność niemal wszędzie: na ulicy, w domu czy pracy. Zanieczyszczenia trafiają do naszego organizmu podczas oddychania, zwiększając ryzyko rozmaitych schorzeń.</p>
+    </div>
+
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:0.75rem;">
+      <span class="sec-tag">Grupy ryzyka</span>
+      <h3 class="sec-title" style="font-size:1.2rem;">Kto jest najbardziej narażony?</h3>
+    </div>
+    <div class="vuln-grid reveal">
+      <div class="vuln-item"><span class="vuln-dot"></span>Dzieci i niemowlęta — niedostatecznie rozwinięty układ oddechowy, nerwowy i krwionośny</div>
+      <div class="vuln-item"><span class="vuln-dot"></span>Kobiety w ciąży</div>
+      <div class="vuln-item"><span class="vuln-dot"></span>Osoby z przewlekłymi chorobami serca i układu oddechowego</div>
+      <div class="vuln-item"><span class="vuln-dot"></span>Osoby z cukrzycą i otyłością</div>
+      <div class="vuln-item"><span class="vuln-dot"></span>Osoby pracujące w otoczeniu o wysokim stężeniu zanieczyszczeń</div>
+      <div class="vuln-item"><span class="vuln-dot"></span>Seniorzy — słabszy układ odpornościowy</div>
+    </div>
+
+    <div class="health-cards">
+
+      <div class="health-card reveal">
+        <div class="health-card-head">
+          <div class="health-card-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.98-3 2.5 2.5 0 0 1-1.32-4.24L12 2"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.98-3 2.5 2.5 0 0 0 1.32-4.24L12 2"/>
+            </svg>
+          </div>
+          <h3>Układ nerwowy</h3>
+        </div>
+        <p>Oddychanie zanieczyszczonym powietrzem negatywnie wpływa na ośrodkowy układ nerwowy. Bóle głowy, niepokój, stany depresyjne, problemy z pamięcią — to tylko niektóre z dolegliwości będących skutkiem długotrwałego przebywania w miejscach o złej jakości powietrza.</p>
+        <p>Cząsteczki pyłu zawieszonego o wielkości poniżej 0,1 mikrona mogą przedostawać się do tkanki mózgowej, powodując stany zapalne i zwiększając ryzyko choroby Alzheimera. U dzieci wykryto zależność między wynikami w nauce a poziomem zanieczyszczeń — ekspozycja w okresie prenatalnym wiązała się też z niższym IQ i trudnościami z koncentracją.</p>
+      </div>
+
+      <div class="health-card reveal">
+        <div class="health-card-head">
+          <div class="health-card-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="M8 12h.01M12 8v8M16 12h.01"/>
+            </svg>
+          </div>
+          <h3>Układ oddechowy</h3>
+        </div>
+        <p>Wdychanie zanieczyszczonego powietrza może prowadzić do alergii, podrażnienia oczu i gardła, astmy oraz zapalenia płuc lub oskrzeli. Szacuje się, że ok. 4 mln Polaków cierpi na astmę — u połowy nie jest ona rozpoznana i właściwie leczona.</p>
+        <p>Wysokie stężenia pyłów zawieszonych zwiększają też ryzyko raka płuc. Międzynarodowa Agencja Badań Nad Rakiem uznała PM za substancję rakotwórczą — szczególnie dotkliwy problem w Małopolsce i na Śląsku w sezonie grzewczym.</p>
+      </div>
+
+      <div class="health-card reveal">
+        <div class="health-card-head">
+          <div class="health-card-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </div>
+          <h3>Układ sercowo-naczyniowy</h3>
+        </div>
+        <p>Oddychanie zanieczyszczonym powietrzem zwiększa ryzyko miażdżycy, nadciśnienia, arytmii i zawału serca. Badania UJ wykazały, że pyły zawieszone negatywnie wpływają na śródbłonek naczyń, wywołując stres oksydacyjny i stany zapalne układu krwionośnego.</p>
+        <p>Badania Śląskiego Centrum Chorób Serca z 2016 r. potwierdziły, że przebywanie w miejscach, gdzie stężenie pyłów przekraczało 200 µg/m³, wiązało się z o 8% wyższą śmiertelnością z przyczyn sercowo-naczyniowych.</p>
+      </div>
+
+      <div class="health-card reveal">
+        <div class="health-card-head">
+          <div class="health-card-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12h.01M15 12h.01M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
+              <path d="M12 2a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8Z"/>
+              <path d="M8 6.1C9 5 10.5 4 12 4"/>
+              <path d="m19 4-7 4"/>
+            </svg>
+          </div>
+          <h3>Ciąża i okres prenatalny</h3>
+        </div>
+        <p>Rozwijający się płód jest szczególnie wrażliwy na pył zawieszony i WWA, które mogą przenikać do łożyska. Badania wskazują, że wysokie stężenia zanieczyszczeń prowadzą do obumarcia płodu, wcześniactwa, zbyt niskiej wagi noworodków oraz zwiększonego ryzyka autyzmu.</p>
+        <p>Badania krakowskie wykazały, że dzieci narażone na zanieczyszczenia prenatalne miały niższy IQ o 3,8 pkt. Ekspozycja na WWA w czasie ciąży wiąże się też z większą nadpobudliwością i trudnościami w kontrolowaniu emocji u dzieci.</p>
       </div>
 
     </div>
