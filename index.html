@@ -480,6 +480,81 @@
       .tips-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    /* ── EV SECTION ── */
+    .ev-lead {
+      font-size: 0.9rem; color: var(--ink-mid); line-height: 1.82;
+      font-weight: 300; margin-bottom: 2.5rem; max-width: 720px;
+    }
+    .ev-h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+      font-weight: 700; color: var(--ink); line-height: 1.22;
+      margin-bottom: 1.1rem;
+    }
+    .ev-h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 700; color: var(--ink);
+      margin: 2.2rem 0 0.75rem;
+    }
+    .ev-benefits {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem; margin: 1.5rem 0 2rem;
+    }
+    .ev-benefit-item {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.9rem 1.1rem;
+      font-size: 0.84rem; color: var(--ink-mid); font-weight: 300; line-height: 1.6;
+    }
+    .ev-benefit-item::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0; margin-top: 0.45em;
+    }
+    .ev-avas-box {
+      background: rgba(59,109,17,0.04);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      margin: 1.75rem 0;
+    }
+    .ev-avas-label {
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; display: block;
+    }
+    .ev-avas-box p {
+      font-size: 0.85rem; color: var(--ink-mid); font-weight: 300; line-height: 1.78;
+    }
+    .ev-divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    .ev-nuance-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin: 1.25rem 0 2rem;
+    }
+    .ev-nuance-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.2rem 1.3rem;
+    }
+    .ev-nuance-title {
+      font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 0.45rem;
+    }
+    .ev-nuance-text {
+      font-size: 0.82rem; color: var(--ink-mid); font-weight: 300; line-height: 1.72;
+    }
+    .ev-battery-block {
+      background: rgba(26,33,18,0.03); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.75rem 2rem; margin-top: 2rem;
+    }
+    .ev-battery-block p {
+      font-size: 0.86rem; color: var(--ink-mid); font-weight: 300;
+      line-height: 1.82; margin-bottom: 0.85rem;
+    }
+    .ev-battery-block p:last-child { margin-bottom: 0; }
+    @media (max-width: 768px) {
+      .ev-benefits { grid-template-columns: 1fr; }
+      .ev-nuance-grid { grid-template-columns: 1fr 1fr; }
+    }
+
     /* ── SURVEY SECTION ── */
     .survey-section { border-top: 1px solid var(--border); }
     .survey-wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2.5rem; }
@@ -1171,11 +1246,104 @@
           <li><span><strong>Emisje bezpośrednie (tabor spalinowy):  </strong>Silniki lokomotyw spalinowych emitują <strong>tlenki azotu (NOx), tlenki węgla (CO) oraz pyły zawieszone (PM).</strong> Kolej odpowiada za niewielki ułamek emisji gazów cieplarnianych w porównaniu do transportu drogowego (0,4% vs 72% w UE).</span></li>
           <li><span><strong>Emisje pośrednie (tabor elektryczny): </strong>Chociaż pociągi elektryczne nie emitują spalin w miejscu eksploatacji, ich wpływ na środowisko zależy od <strong>miksu energetycznego</strong> kraju. W Polsce energia ta wciąż w dużej mierze pochodzi z węgla kamiennego i brunatnego..</span></li>
           <li><span><strong>Ścieranie elementów: </strong>Podczas eksploatacji dochodzi do mechanicznego ścierania się klocków hamulcowych, kół oraz szyn, co może generować pyły.</span></li>
-      <h3 class="sec-title" style="padding-bottom: 20px; font-size: 1.35rem;">Technologie ograniczające hałas i emisje</h3>     
+      <h2 class="sec-title" style="padding-top: 20px; padding-bottom: 20px;">Technologie ograniczające hałas i emisje<h2>  
         <p  class="poll-intro" style="margin-bottom:1.5rem;">Współczesne kolejnictwo wdraża szereg rozwiązań technicznych mających na celu minimalizację uciążliwości transportu:</p>          
         </ul>
+      <h3 class="sec-title" style="padding-bottom: 20px; font-size: 1.35rem;">Ograniczanie hałasu:</h3>  
+        <p  class="poll-intro" style="margin-bottom:1.5rem;">Pociągi emitują zanieczyszczenia bezpośrednie oraz pośrednie:</p>
+        <ul class="detail-list">
+          <li><span><strong>Kompozytowe klocki hamulcowe: </strong>Zastąpienie żeliwnych klocków wstawkami kompozytowymi (tzw. ciche hamulce) redukuje hałas toczenia o <strong>8–12 dB</strong>, ponieważ nie powodują one chropowatości powierzchni koła.</span></li>
+          <li><span><strong>Absorbery szynowe: </strong>Urządzenia montowane do szyn, które tłumią ich drgania, pozwalając na redukcję hałasu o średnio <strong>4,1 dB.</strong></span></li>
+          <li><span><strong>Smarownice torowe: </strong>Automatyczne urządzenia nakładające smar na szyny w łukach, co eliminuje piski i zmniejsza zużycie materiałów.</span></li>        
+          <li><span><strong>Szlifowanie szyn: </strong>Regularna konserwacja powierzchni szyn pozwala obniżyć hałas o około <strong>3 dB.</strong></span></li>
+          <li><span><strong>Nowoczesny tabor: </strong>Nowe jednostki (np. Pendolino, FLIRT3) są zaprojektowane aerodynamicznie i z wykorzystaniem materiałów tłumiących, co czyni je o ok. <strong>10 dB cichszymi</strong> od starszych modeli.</span></li>
      </div>
     </div>
+  </div>
+</section>
+
+<!-- EMISSION REDUCTION -->
+<section class="poll-section">
+  <div class="poll-wrap">
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:1.2rem;">
+      <h3 class="sec-title" style="padding-bottom: 20px; font-size: 1.35rem;">Ograniczanie emisji zanieczyszczeń:</h3>
+      <p class="poll-intro" style="margin-bottom:1.5rem;">Kolej wdraża szereg rozwiązań ograniczających emisję szkodliwych substancji do środowiska:</p>
+    </div>
+    <div class="reveal">
+      <ul class="detail-list">
+        <li><span><strong>Modernizacja silników spalinowych: </strong>Nowe układy w lokomotywach manewrowych (np. seria SM/SU42) spełniają surowe normy Stage IIIB i Stage V, znacznie redukując NOx i pyły.</span></li>
+        <li><span><strong>Tryb bateryjny: </strong>Możliwość pracy lokomotyw spalinowych na bateriach w rejonach wrażliwych (stacje, centra miast) ogranicza emisje i hałas, pozostawiając jedynie dźwięk jazdy (styku kół i szyn).</span></li>
+        <li><span><strong>Zwiększanie udziału OZE: </strong>PKP Intercity planuje zwiększenie udziału energii z odnawialnych źródeł w zasilaniu pociągów do <strong>50%</strong> w 2030 roku.</span></li>
+        <li><span><strong>Rekuperacja energii: </strong>Nowoczesne składy elektryczne mogą oddawać energię do sieci podczas hamowania.</span></li>
+        <li><span><strong>Zielone torowiska: </strong>Stosowanie nawierzchni trawiastych (głównie w infrastrukturze tramwajowej) pomaga pochłaniać dźwięki i filtrować zanieczyszczenia.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ELECTRIC VEHICLES -->
+<section class="poll-section">
+  <div class="poll-wrap">
+    <div class="sec-header reveal" style="text-align:left; margin-bottom:0.5rem;">
+      <span class="sec-tag">Elektromobilność</span>
+    </div>
+
+    <!-- NOISE SUBSECTION -->
+    <div class="reveal">
+      <h2 class="ev-h2">Wpływ samochodów elektrycznych na poziom hałasu</h2>
+      <p class="ev-lead">Hałas komunikacyjny jest jednym z głównych problemów drogowych i powstaje przede wszystkim w wyniku pracy silników spalinowych, układów wydechowych oraz tarcia elementów pojazdu o nawierzchnię drogi. Samochody elektryczne nie posiadają silników spalinowych, dlatego podczas jazdy — szczególnie przy niskich prędkościach — emitują znacznie mniej hałasu niż pojazdy spalinowe. Ograniczenie poziomu hałasu jest istotne na terenach miejskich, gdzie duże natężenie ruchu drogowego powoduje stałe narażenie mieszkańców na jego wysoki poziom, co może mieć poważne reperkusje zdrowotne i psychiczne.</p>
+
+      <p style="font-size:0.84rem; color:var(--ink-mid); font-weight:300; margin-bottom:0.85rem; line-height:1.75;">Samo zmniejszenie hałasu komunikacyjnego może przyczynić się do:</p>
+      <div class="ev-benefits">
+        <div class="ev-benefit-item">poprawy komfortu życia mieszkańców</div>
+        <div class="ev-benefit-item">zmniejszenia poziomu stresu</div>
+        <div class="ev-benefit-item">poprawy jakości snu</div>
+        <div class="ev-benefit-item">lepszej koncentracji w pracy i nauce</div>
+      </div>
+
+      <div class="ev-avas-box">
+        <span class="ev-avas-label">Regulacja UE · 2019</span>
+        <p>Od 2019 roku Unia Europejska wprowadziła obowiązek wyposażania wszystkich nowych pojazdów elektrycznych i hybrydowych w system <strong>AVAS</strong> (akustyczny system ostrzegania o pojazdach). Urządzenie emituje dźwięk podobny do tradycyjnego silnika i musi być aktywne gdy pojazd cofa lub porusza się z prędkością mniejszą niż <strong>30 km/h</strong>. Wymóg ten był odpowiedzią na ciche silniki, które stanowiły zagrożenie dla pieszych — szczególnie osób niedowidzących — przyzwyczajonych do słyszalnego zbliżającego się pojazdu.</p>
+      </div>
+    </div>
+
+    <hr class="ev-divider">
+
+    <!-- AIR QUALITY SUBSECTION -->
+    <div class="reveal">
+      <h2 class="ev-h2">Samochody elektryczne a jakość powietrza</h2>
+      <p class="ev-lead">Samochody elektryczne podczas jazdy nie emitują spalin, dzięki czemu ograniczają ilość zanieczyszczeń w miejscu ich użytkowania. Ma to szczególne znaczenie w centrach miast oraz w pobliżu ruchliwych ulic. Eliminacja rur wydechowych usuwa emisję substancji rakotwórczych i tlenków azotu — te ostatnie spadają o <strong>1,1%</strong> na każde 200 samochodów elektrycznych zastępujących spalinowe. Zmniejsza się też poziom pyłów zawieszonych w rejonach o dużym natężeniu ruchu.</p>
+
+      <p style="font-size:0.84rem; color:var(--ink-mid); font-weight:300; margin-bottom:1rem; line-height:1.75;">Wprowadzenie większej liczby elektryków może również zmniejszyć zjawisko tzw. lokalnych <strong>„kieszeni zanieczyszczeń"</strong> — przestrzeni między wysokimi budynkami, gdzie ograniczony przepływ powietrza utrudnia rozpraszanie spalin. W korkach i przy skrzyżowaniach pojazdy spalinowe akumulują tam zanieczyszczenia, które mogą się utrzymywać przez dłuższy czas.</p>
+
+      <h3 class="ev-h3">Emisje, których elektryki nie eliminują</h3>
+      <div class="ev-nuance-grid">
+        <div class="ev-nuance-card">
+          <div class="ev-nuance-title">Pyły z opon</div>
+          <div class="ev-nuance-text">Podczas jazdy drobne fragmenty gumy odrywają się od powierzchni opon, unosząc się w powietrzu lub osiadając na jezdni i wzbijając ponownie przez ruch pojazdów.</div>
+        </div>
+        <div class="ev-nuance-card">
+          <div class="ev-nuance-title">Pył hamulcowy</div>
+          <div class="ev-nuance-text">Ścieranie klocków i tarcz hamulcowych generuje drobne cząstki metali. Elektryki częściej korzystają z hamowania rekuperacyjnego, co częściowo ogranicza tę emisję.</div>
+        </div>
+        <div class="ev-nuance-card">
+          <div class="ev-nuance-title">Masa pojazdu</div>
+          <div class="ev-nuance-text">Akumulatory trakcyjne zwiększają masę pojazdu, co może intensyfikować zużycie opon i nawierzchni drogi, prowadząc do wyższej emisji pyłów niespalinowych.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="ev-divider">
+
+    <!-- BATTERY PRODUCTION SUBSECTION -->
+    <div class="reveal">
+      <h2 class="ev-h2">Wpływ produkcji baterii na środowisko</h2>
+      <div class="ev-battery-block">
+        <p>Pomimo wielu zalet samochody elektryczne nie są całkowicie neutralne dla środowiska. Produkcja akumulatorów wymaga surowców takich jak <strong>lit, nikiel i kobalt</strong>, których wydobycie wiąże się z ingerencją w środowisko naturalne oraz dużym zużyciem energii.</p>
+        <p>Trzeba również pamiętać o konieczności odpowiedniego recyklingu zużytych baterii. Rozwój technologii przetwarzania akumulatorów ma kluczowe znaczenie dla dalszego ograniczania negatywnego wpływu elektromobilności na środowisko.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
