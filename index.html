@@ -405,6 +405,32 @@
       position: relative;
       top: -1px;
     }
+    .detail-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0 1.75rem;
+    }
+    .detail-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+    .detail-list li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      margin-top: 0.5em;
+    }
+
     .smog-box {
       background: rgba(59,109,17,0.05);
       border: 1px solid var(--border);
@@ -1125,11 +1151,35 @@
         </ul>
         <p>Jest szczególnie niebezpieczny dla mieszkańców dużych miast oraz osób zamieszkujących w pobliżu ruchliwych ulic.</p>
       </div>
+     <div class="sec-header reveal" style="text-align:left; margin-bottom:1.2rem;">
+      <h2 class="sec-title" style="padding-top: 20px; padding-bottom: 20px;">Wpływ pociągów na środowisko <h2>
+        <p class="poll-intro" style="margin-bottom:1.75rem;">Transport kolejowy jest uznawany za jeden z najmniej emisyjnych środków transportu, odpowiadając za zaledwie ok. 0,4% bezpośrednich emisji z pojazdów spalinowych w UE. Mimo to pociągi generują specyficzne rodzaje hałasu i zanieczyszczeń, których ograniczanie jest kluczowe dla ochrony zdrowia i środowiska. Z uwagi na dużą ilość pasażerów korzystających z jednego pojazdu i obecną modę na ochronę środowiska, staję się ponownie kluczowym środkiem transportu, wywierając wyraźną presję na rynku samochodowym
+        </p>
+      <h3 class="sec-title" style="padding-bottom: 20px; font-size: 1.35rem;">Co dokładnie emituje hałas w pociągach?</h3>
+        <p  class="poll-intro" style="margin-bottom:1.5rem;">Hałas kolejowy dzieli się na kilka głównych kategorii w zależności od mechanizmu jego powstawania:</p>
+        <ul class="detail-list">
+          <li><span><strong>Hałas toczenia:</strong> Jest to dominujące źródło dźwięku przy prędkościach od 60 km/h do ok. 200–250 km/h. Powstaje na styku koła i szyny.</span></li>
+          <li><span><strong>Hałas mechaniczny (silnika i urządzeń):</strong> Dominuje przy niskich prędkościach (do 60 km/h), zwłaszcza podczas ruszania i przyspieszania. Jego źródłem są silniki, sprężarki, wentylatory oraz układy chłodzenia.</span></li>
+          <li><span><strong>Hałas aerodynamiczny:</strong> Staje się kluczowy przy bardzo dużych prędkościach. Wynika z zaburzeń powietrza wokół pociągu, szczególnie w okolicy czoła pociągu i połączeń między wagonami.</span></li>
+          <li><span><strong>Hałas hamowania i ruszania:</strong> Tarcie klocków hamulcowych o koła generuje dokuczliwe piski o wysokiej częstotliwości, drażniące uszy.</span></li>
+          <li><span><strong>Hałas na łukach:</strong> Występuje podczas wpisywania się pociągu w ostre łuki, gdzie dochodzi do pisków wywołanych tarciem obrzeży kół o szyny.</span></li>
+          <li><span><strong>Hałas infrastrukturalny:</strong> Obejmuje dźwięki z przejazdów kolejowych, sygnały ostrzegawcze (syreny) oraz ogłoszenia stacyjne.</span></li>
+        </ul>
+      <h3 class="sec-title" style="padding-bottom: 20px; font-size: 1.35rem;">Co emituje zanieczyszczenia?</h3>  
+        <p  class="poll-intro" style="margin-bottom:1.5rem;">Pociągi emitują zanieczyszczenia bezpośrednie oraz pośrednie:</p>
+        <ul class="detail-list">
+          <li><span><strong>Emisje bezpośrednie (tabor spalinowy):  </strong>Silniki lokomotyw spalinowych emitują <strong>tlenki azotu (NOx), tlenki węgla (CO) oraz pyły zawieszone (PM).</strong> Kolej odpowiada za niewielki ułamek emisji gazów cieplarnianych w porównaniu do transportu drogowego (0,4% vs 72% w UE).</span></li>
+          <li><span><strong>Emisje pośrednie (tabor elektryczny): </strong>Chociaż pociągi elektryczne nie emitują spalin w miejscu eksploatacji, ich wpływ na środowisko zależy od <strong>miksu energetycznego</strong> kraju. W Polsce energia ta wciąż w dużej mierze pochodzi z węgla kamiennego i brunatnego..</span></li>
+          <li><span><strong>Ścieranie elementów: </strong>Podczas eksploatacji dochodzi do mechanicznego ścierania się klocków hamulcowych, kół oraz szyn, co może generować pyły.</span></li>
+      <h3 class="sec-title" style="padding-bottom: 20px; font-size: 1.35rem;">Technologie ograniczające hałas i emisje</h3>     
+        <p  class="poll-intro" style="margin-bottom:1.5rem;">Współczesne kolejnictwo wdraża szereg rozwiązań technicznych mających na celu minimalizację uciążliwości transportu:</p>          
+        </ul>
+     </div>
     </div>
   </div>
 </section>
 
-<!-- NOISE HEALTH EFFECTS -->
+<!-- NOISE HEALTH EFFECTS --!>
 <section class="poll-section">
   <div class="poll-wrap">
     <div class="sec-header reveal" style="text-align:left; margin-bottom:1.2rem;">
