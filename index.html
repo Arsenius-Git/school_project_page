@@ -480,6 +480,62 @@
       .tips-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    /* ── ANALYSIS SECTION ── */
+    .analysis-wrap { margin-top: 3.5rem; }
+    .analysis-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.4vw, 1.95rem);
+      font-weight: 700; color: var(--ink); line-height: 1.22;
+      margin-bottom: 2rem;
+    }
+    .stats-table {
+      width: 100%; border-collapse: collapse;
+      margin-bottom: 2.5rem; font-size: 0.84rem;
+    }
+    .stats-table thead tr {
+      border-bottom: 2px solid var(--border);
+    }
+    .stats-table th {
+      text-align: left; padding: 0.55rem 0.9rem;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .stats-table td {
+      padding: 0.65rem 0.9rem;
+      color: var(--ink-mid); font-weight: 300; line-height: 1.6;
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-table td:first-child { font-weight: 500; color: var(--ink); }
+    .stats-table td strong { color: var(--ink); font-weight: 600; }
+    .stats-table tr:last-child td { border-bottom: none; }
+    .stats-table .stat-note {
+      font-size: 0.78rem; color: var(--ink-soft); font-weight: 300;
+      font-style: italic; margin-top: 0.2rem; display: block;
+    }
+    .conclusions-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 0.5rem;
+    }
+    .conclusion-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.4rem 1.5rem;
+    }
+    .conclusion-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; display: block;
+    }
+    .conclusion-title {
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 700;
+      color: var(--ink); line-height: 1.28; margin-bottom: 0.75rem;
+    }
+    .conclusion-text {
+      font-size: 0.83rem; color: var(--ink-mid); font-weight: 300; line-height: 1.78;
+    }
+    @media (max-width: 768px) {
+      .conclusions-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── EV SECTION ── */
     .ev-lead {
       font-size: 0.9rem; color: var(--ink-mid); line-height: 1.82;
@@ -1872,6 +1928,100 @@
       </div>
 
     </div>
+
+    <!-- STATISTICAL ANALYSIS -->
+    <div class="analysis-wrap reveal">
+      <h2 class="analysis-title">Analiza statystyczna</h2>
+
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Pytanie</th>
+            <th>Miara</th>
+            <th>Wartość / Obserwacja</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="5">Skala uciążliwości hałasu</td>
+            <td>Średnia arytmetyczna</td>
+            <td><strong>3,05</strong></td>
+          </tr>
+          <tr>
+            <td>Mediana</td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td>Dominanta</td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td>Odchylenie standardowe</td>
+            <td><strong>1,80</strong></td>
+          </tr>
+          <tr>
+            <td>Rozstęp</td>
+            <td><strong>7</strong> <span class="stat-note">Zdecydowana większość badanych ocenia hałas nisko; wartości 5–8 to pojedyncze przypadki zawyżające średnią.</span></td>
+          </tr>
+          <tr>
+            <td>Rodzaj hałasu</td>
+            <td>Dominanta</td>
+            <td><strong>Brak problemów</strong></td>
+          </tr>
+          <tr>
+            <td>Hałas transportowy — negatywne skutki</td>
+            <td>Dominanta</td>
+            <td><strong>Brak negatywnych skutków</strong></td>
+          </tr>
+          <tr>
+            <td>Poczucie negatywnych skutków spalin</td>
+            <td>Dominanta / odchylenie</td>
+            <td><strong>Rzadko</strong> / bardzo małe</td>
+          </tr>
+          <tr>
+            <td>Najbardziej uciążliwe źródło dźwięku</td>
+            <td>Dominanta / odchylenie</td>
+            <td><strong>Motocykle i głośne wydechy</strong> / duże</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="analysis-title" style="margin-top:2rem;">Wnioski</h2>
+      <div class="conclusions-grid">
+
+        <div class="conclusion-card">
+          <span class="conclusion-label">Wniosek 1</span>
+          <div class="conclusion-title">Paradoks „Cichej Wsi" i „Czystego Miasta"</div>
+          <p class="conclusion-text">Badanie obala mit, że mieszkanie poza miastem gwarantuje idealne warunki. Mimo że 41,7% respondentów mieszka na wsi, nikt nie ocenił jakości powietrza jako idealnej (5/5). Sugeruje to, że smog transportowy oraz niska emisja to problem o zasięgu regionalnym, a nie tylko punktowym. Infrastruktura drogowa przecinająca mniejsze miejscowości drastycznie obniża ich walory zdrowotne.</p>
+        </div>
+
+        <div class="conclusion-card">
+          <span class="conclusion-label">Wniosek 2</span>
+          <div class="conclusion-title">Kolej jako „Uciążliwy Sąsiad" w cieniu dróg</div>
+          <p class="conclusion-text">Mimo że uwaga opinii publicznej skupia się na smogu z rur wydechowych, wyniki pokazują, że kolej jest potężnym czynnikiem kształtującym komfort życia. Blisko połowa badanych (45,5%) żyje w strefie oddziaływania kolei. Wysokie wskazania hałasu u tych osób sugerują, że hałas impulsowy przejeżdżającego pociągu jest subiektywnie bardziej uciążliwy niż jednostajny szum samochodowy — ważny argument za budową ekranów akustycznych przy modernizowanych liniach kolejowych.</p>
+        </div>
+
+        <div class="conclusion-card">
+          <span class="conclusion-label">Wniosek 3</span>
+          <div class="conclusion-title">Korelacja: Infrastruktura = Deprywacja środowiskowa</div>
+          <p class="conclusion-text">Dane pokazują jasną zależność między rodzajem drogi a jakością życia. Respondenci mieszkający przy drogach krajowych i wojewódzkich stanowią grupę podwyższonego ryzyka — odpowiedzi 1–2 (zła jakość powietrza) oraz 4–5 (wysoki hałas) występują niemal zawsze w parze. Potwierdza to teorię o kumulacji negatywnych bodźców wzdłuż głównych korytarzy transportowych.</p>
+        </div>
+
+        <div class="conclusion-card">
+          <span class="conclusion-label">Wniosek 4 — metodologiczny</span>
+          <div class="conclusion-title">Percepcja a rzeczywistość</div>
+          <p class="conclusion-text">Przewaga ocen „3" w kontekście jakości powietrza przy jednoczesnym braku ocen „5" świadczy o dużej świadomości społecznej. Polacy przestali postrzegać jakość powietrza jako „neutralną" — nawet gdy nie czują bezpośredniego smogu. Może to wynikać z powszechnego dostępu do aplikacji z mapami jakości powietrza, co wpływa na subiektywny odbiór otoczenia bardziej niż same zmysły.</p>
+        </div>
+
+        <div class="conclusion-card" style="grid-column: 1 / -1;">
+          <span class="conclusion-label">Rekomendacja — planowanie przestrzenne</span>
+          <div class="conclusion-title">Strefy buforowe są niewystarczające</div>
+          <p class="conclusion-text">Skoro ponad 36% osób zgłasza uciążliwy hałas, obecne strefy buforowe między infrastrukturą a zabudową mieszkalną nie spełniają swojej roli. Projekt dowodzi, że konieczne jest zaostrzenie przepisów dotyczących odległości nowych inwestycji deweloperskich od istniejących węzłów komunikacyjnych.</p>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2091,9 +2241,9 @@
        pm25 / no2 — fallback values overwritten by live GIOŚ fetch        ── */
   const VOI = {
     'PL.DS': { name: 'Dolnośląskie',        capital: 'Wrocław',       noise: 68, pm25: 32, no2: 38 },
-    'PL.KP': { name: 'Kujawsko-Pomorskie',  capital: 'Bydgoszcz',     noise: 62, pm25: 28, no2: 29 },
-    'PL.LB': { name: 'Lubelskie',           capital: 'Lublin',        noise: 59, pm25: 25, no2: 24 },
-    'PL.LU': { name: 'Lubuskie',            capital: 'Zielona Góra',  noise: 56, pm25: 20, no2: 19 },
+    'PL.KP': { name: 'Kujawsko-Pomorskie',  capital: 'Bydgoszcz / Toruń',     noise: 62, pm25: 28, no2: 29 },
+    'PL.LB': { name: 'Lubuskie',           capital: 'Zielona Góra / Gorzów Wielkopolski',        noise: 59, pm25: 25, no2: 24 },
+    'PL.LU': { name: 'Lubelskie',            capital: 'Lublin',  noise: 56, pm25: 20, no2: 19 },
     'PL.LD': { name: 'Łódzkie',             capital: 'Łódź',          noise: 65, pm25: 34, no2: 40 },
     'PL.MA': { name: 'Małopolskie',         capital: 'Kraków',        noise: 69, pm25: 44, no2: 46 },
     'PL.MZ': { name: 'Mazowieckie',         capital: 'Warszawa',      noise: 71, pm25: 36, no2: 48 },
